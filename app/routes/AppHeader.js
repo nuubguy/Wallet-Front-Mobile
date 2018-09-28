@@ -4,7 +4,7 @@ import {
 } from 'native-base';
 
 const AppHeader = props => (
-  <Header>
+  <Header style={{backgroundColor: '#0fb9b1'}}>
     <Left>
       <Icon
         id="imageHeader"
@@ -14,7 +14,7 @@ const AppHeader = props => (
       />
     </Left>
     <Right>
-      <Title id="titleHeader">{props.title}</Title>
+      <Title style={{color: '#fff'}} id="titleHeader">{props.title}</Title>
             />
     </Right>
   </Header>
