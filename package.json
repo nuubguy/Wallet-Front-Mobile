@@ -1,16 +1,53 @@
 {
-  "name": "empty-project-template",
+  "name": "zoombank",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "node ./node_modules/jest/bin/jest.js --env=jsdom --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
+    "setupFiles": [
+      "enzyme-react-16-adapter-setup"
+    ],
+    "testURL": "http://localhost",
+    "testMatch": [
+      "**/?(*-)test.js?(x)"
+    ],
+    "transformIgnorePatterns": []
   },
   "dependencies": {
+    "@expo/samples": "2.1.1",
+    "axios": "^0.18.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "expo": "^30.0.1",
+    "native-base": "^2.8.0",
+    "prop-types": "^15.6.2",
     "react": "16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react-native-vector-icons": "^5.0.0",
+    "react-navigation": "^2.16.0",
+    "react-navigation-material-bottom-tabs": "^0.4.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.6.0",
+    "enzyme-react-16-adapter-setup": "^0.1.0",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.6.0",
+    "jest-enzyme": "^6.1.2",
+    "jest-expo": "30.0.0",
+    "react-dom": "16",
+    "react-test-renderer": "^16.5.2"
   }
 }
