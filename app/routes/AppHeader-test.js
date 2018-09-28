@@ -17,7 +17,6 @@ describe('HomeContainer', () => {
       console.log(wrapper.find('#titleHeader').length);
       console.log(wrapper.find('#titleHeader').innerText);
       expect(wrapper.find('#titleHeader').length).toBe(1);
-
     });
   });
 });

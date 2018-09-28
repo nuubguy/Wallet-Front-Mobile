@@ -7,6 +7,7 @@ import AccountService from './AccountService';
 import * as config from '../../config/Constant';
 import AppHeader from "../../routes/AppHeader";
 import TransactionHistoriesList from "../../TransactionHistoryScreen/sections/TransactionHistoriesList";
+
 export default class HomeContainer extends React.Component {
 
     constructor(props) {
@@ -17,8 +18,10 @@ export default class HomeContainer extends React.Component {
                 amount: '',
                 currency: ''
             },
-            transactions:[],
+            transactions: [],
         }
+        this.username = 'C00000001';
+        this.account = 'A00000001';
     }
 
     static navigationOptions = {
@@ -29,7 +32,7 @@ export default class HomeContainer extends React.Component {
 
     async componentDidMount() {
         try {
-            let account = new AccountService('C00000001', 'A00000001', config.BASE_URL);
+            let account = new AccountService(this.username, this.account, config.BASE_URL);
             let result = await account.getAccount();
             let trxResponse = await account.getTransactionList();
             this.setState({
@@ -58,8 +61,7 @@ export default class HomeContainer extends React.Component {
                     </View>
                 </View>
                 <View style={styles.transaction}>
-                    <TransactionHistoriesList data={this.state.transactions}/>
-                    {/*<TransactionHistoryContainer/>*/}
+                    <TransactionHistoriesList data={this.state.transactions} navigate={this.props.navigation}/>
                 </View>
             </View>
         );
@@ -70,7 +72,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f5f5f5',
-
     },
     hello: {
         color: 'green',
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderBottomColor: '#131412',
         width: '100%',
-        padding: 20,
+        padding: 10,
         paddingLeft: 20
     },
     rowBalance: {
