@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   menu: {
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#0fb9b1',
   },
   logo: {
     height: 100,
@@ -39,7 +40,7 @@ const AppDrawerNavigator = createDrawerNavigator({
 }, {
   contentComponent: CustomDrawerComponent,
   contentOptions: {
-    activeTintColor: '#3f9142',
+    activeTintColor: '#0fb9b1',
   },
 });
 
