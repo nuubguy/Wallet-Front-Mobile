@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {Header, Left, Icon, Title, Right} from 'native-base';
+import {Icon} from 'native-base';
 import Balance from '../sections/Balance';
-import TransactionHistoryContainer from '../../TransactionHistoryScreen/TransactionHistoryContainer';
 import Username from '../sections/Username';
 import AccountService from './AccountService';
 import * as config from '../../config/Constant';
 import AppHeader from "../../routes/AppHeader";
+import TransactionHistoriesList from "../../TransactionHistoryScreen/sections/TransactionHistoriesList";
+
 export default class HomeContainer extends React.Component {
 
     constructor(props) {
@@ -16,8 +17,11 @@ export default class HomeContainer extends React.Component {
             balance: {
                 amount: '',
                 currency: ''
-            }
+            },
+            transactions: [],
         }
+        this.username = 'C00000001';
+        this.account = 'A00000001';
     }
 
     static navigationOptions = {
@@ -28,13 +32,14 @@ export default class HomeContainer extends React.Component {
 
     async componentDidMount() {
         try {
-            let account = new AccountService('C00000001', 'A00000001', config.BASE_URL);
+            let account = new AccountService(this.username, this.account, config.BASE_URL);
             let result = await account.getAccount();
+            let trxResponse = await account.getTransactionList();
             this.setState({
                 username: result.data.customer.name,
-                balance: result.data.balance
+                balance: result.data.balance,
+                transactions: trxResponse.data
             });
-
         }
         catch (e) {
             console.log(e)
@@ -51,12 +56,12 @@ export default class HomeContainer extends React.Component {
                             <Username data={this.state.username}/>
                         </Text>
                     </View>
-                    <View style={styles.row}>
+                    <View style={styles.rowBalance}>
                         <Balance style={styles.balance} data={this.state.balance}/>
                     </View>
                 </View>
                 <View style={styles.transaction}>
-                    <TransactionHistoryContainer/>
+                    <TransactionHistoriesList data={this.state.transactions} navigate={this.props.navigation}/>
                 </View>
             </View>
         );
@@ -66,7 +71,7 @@ export default class HomeContainer extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f5f5f5',
     },
     hello: {
         color: 'green',
@@ -78,6 +83,14 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 10,
         paddingLeft: 20
+    },
+    rowBalance: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#131412',
+        width: '100%',
+        padding: 10,
+        paddingLeft: 20,
+        backgroundColor: 'white'
     },
     balance: {
         flex: 1,
