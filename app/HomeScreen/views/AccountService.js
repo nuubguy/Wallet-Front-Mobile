@@ -67,9 +67,12 @@ export default class AccountService {
                     accountId,
                     customer: {
                         customerId,
-                        name: this.customerInfo.name,
-                        info: this.customerInfo.info,
-                        disabled: this.customerInfo.disabled,
+                        // name: this.customerInfo.name,
+                        // info: this.customerInfo.info,
+                        // disabled: this.customerInfo.disabled,
+                        name: 'nofanto',
+                        info: 'chip',
+                        disabled: false,
                     },
                 };
             }

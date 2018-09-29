@@ -22,3 +22,4 @@ describe('HomeContainer', () => {
             expect(wrapper.find('AppHeader').props().data).toEqual({});
         });
     });
+});
