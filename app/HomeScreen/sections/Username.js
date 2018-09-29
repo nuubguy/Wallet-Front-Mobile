@@ -29,7 +29,7 @@ const Username = ({data}) => {
     return (
         <View>
             <View style={styles.row}>
-                <Icon name="md-man"/>
+                <Icon name="ios-person"/>
                 {' '}
                 <Text style={styles.text}> Hi, </Text>
                 <View style={styles.right}>
