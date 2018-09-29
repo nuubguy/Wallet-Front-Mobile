@@ -1,10 +1,11 @@
 import {createDrawerNavigator, DrawerItems} from 'react-navigation';
 import {
-    ScrollView, SafeAreaView, View, StyleSheet, Image,
+    ScrollView, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, Text
 } from 'react-native';
 import React from 'react';
 
 import HomeContainer from '../HomeScreen/views/HomeContainer';
+import TopUpContainer from "../TopUpScreen/views/TopUpContainer";
 
 const styles = StyleSheet.create({
     container: {
@@ -36,7 +37,9 @@ const CustomDrawerComponent = props => (
 
 
 const AppDrawerNavigator = createDrawerNavigator({
+    TopUp: TopUpContainer,
     Home: HomeContainer,
+
 }, {
     contentComponent: CustomDrawerComponent,
     contentOptions: {
