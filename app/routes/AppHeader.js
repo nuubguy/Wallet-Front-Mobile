@@ -1,6 +1,6 @@
 import React from 'react';
 import {Header} from "react-native-elements";
-import {Text, View, StyleSheet} from 'react-native';
+import { View} from 'react-native';
 
 const AppHeader = props => {
     return (
