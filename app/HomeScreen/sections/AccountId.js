@@ -1,6 +1,8 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Icon} from 'native-base';
+import PropTypes from "prop-types";
+import Username from "./Username";
 
 const styles = StyleSheet.create({
     container: {
@@ -13,8 +15,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     balance: {
-        fontSize: 18,
-        color: '#101010',
+        // fontSize: 18,
+        // color: '#101010',
     },
     row: {
         flexDirection: 'row',
@@ -32,7 +34,7 @@ const AccountId = ({data}) => {
             <View style={styles.row}>
                 <Icon name="md-contacts"/>
                 {' '}
-                <Text style={styles.balance}> Hi, </Text>
+                <Text> Hi, </Text>
                 <View style={styles.right}>
                     <Text style={styles.text} id="accountId">
                         {' '}
@@ -47,3 +49,6 @@ const AccountId = ({data}) => {
 
 
 export default AccountId;
+AccountId.propTypes = {
+    accountId: PropTypes.string,
+};

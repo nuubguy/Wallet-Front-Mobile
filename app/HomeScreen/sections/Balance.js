@@ -2,6 +2,8 @@ import React from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
 import * as styleBase from '../../config/Base';
 import * as config from '../../config/Constant';
+import PropTypes from 'prop-types';
+
 
 const styles = StyleSheet.create({
     container: {
@@ -12,6 +14,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#101010',
         flexDirection: 'row',
+        fontWeight: "bold"
     },
     balance: {
         fontSize: 18,
@@ -38,8 +41,10 @@ const Balance = (props) => {
     return (
         <View>
             <View style={styles.row}>
-                <Image style={styleBase.IMAGE_ICON} source={config.BALANCE_ICON}/>
-                <Text style={styles.balance}> Total Balance : </Text>
+                <View style={styles.row}>
+                    <Image style={styleBase.IMAGE_ICON} source={config.BALANCE_ICON}/>
+                    <Text style={styles.balance}> Total Balance : </Text>
+                </View>
                 <View style={styles.row}>
                     <View style={styles.right}>
                         <Text style={styles.text} id="endBalance">
@@ -59,3 +64,7 @@ const Balance = (props) => {
 
 
 export default Balance;
+Balance.propTypes = {
+    currency: PropTypes.string,
+    amount: PropTypes.string,
+};

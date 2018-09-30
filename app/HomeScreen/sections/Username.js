@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Icon} from 'native-base';
+import PropTypes from "prop-types";
 
 const styles = StyleSheet.create({
     container: {
@@ -46,3 +47,6 @@ const Username = ({data}) => {
 
 
 export default Username;
+Username.propTypes = {
+    data: PropTypes.string,
+};
