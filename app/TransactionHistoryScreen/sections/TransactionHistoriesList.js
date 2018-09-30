@@ -1,10 +1,17 @@
-// trxhist list
 import {
-    Body, Container, Content, Icon, Left, List, ListItem, Right, Text,
+    Body, Container, Content, Icon, List, ListItem, Right, Text, Left, Thumbnail, Image
 } from 'native-base';
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import * as config from '../../config/Constant';
 
+
+const getImage = (type) =>{
+    if(type === 'credit'){
+        return config.IMAGE_CREDIT;
+    }
+    return config.IMAGE_DEBIT;
+}
 
 const TransactionHistoriesList = props => (
     <Container>
@@ -12,14 +19,12 @@ const TransactionHistoriesList = props => (
             <View style={styles.row}>
                 <Text style={{color: 'white'}}>Transaction Histories</Text>
                 <Right>
-                    {/* <Button transparent> */}
                     <Icon
                         name="ios-arrow-forward"
                         onPress={() => {
                         }}
                         style={{color: 'white'}}
                     />
-                    {/* </Button> */}
                 </Right>
             </View>
 
@@ -27,8 +32,11 @@ const TransactionHistoriesList = props => (
                 {
                     props.data.map(transaction => (
                         <ListItem avatar key={transaction.transactionId}>
-                            <Left/>
-                            <Body>
+                            <Left>
+                                <Thumbnail
+                                    source={getImage(transaction.transactionType)}/>
+                            </Left>
+                            <Body style={{paddingBottom: 22}}>
                             <Text>{transaction.transactionId}</Text>
                             <Text>{transaction.amount}</Text>
                             </Body>
