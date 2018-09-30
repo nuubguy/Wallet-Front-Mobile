@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
-import {Icon} from 'native-base';
 import Balance from '../sections/Balance';
 import Username from '../sections/Username';
 import AccountService from './AccountService';

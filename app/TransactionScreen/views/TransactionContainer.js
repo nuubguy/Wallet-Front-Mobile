@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import TransactionForm from "../sections/TransactionForm";
 import * as stylesBase from "../../config/Base";
 import * as config from "../../config/Constant";
