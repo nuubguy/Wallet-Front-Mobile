@@ -6,8 +6,10 @@ const config = {
     LOGO_IMAGE: require('../resources/images/zoomba-logo.png'),
     HOME_ICON: require('../resources/images/home-icon.png'),
     TOP_UP_ICON: require('../resources/images/topup-icon.png'),
-    MINIMUM_TRX : 15000
-
+    BALANCE_ICON: require('../resources/images/balance-icon.png'),
+    MINIMUM_TRX : 15000,
+    DEBIT : 'debit',
+    CREDIT: 'credit'
 };
 
 module.exports = config;

@@ -3,6 +3,10 @@ const style = {
         width: 40,
         height: 40
     },
+    IMAGE_ICON: {
+        width: 25,
+        height: 25
+    },
     CONTAINER:{
         flex: 1,
         backgroundColor: '#f5f5f5'
