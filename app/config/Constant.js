@@ -7,6 +7,7 @@ const config = {
     HOME_ICON: require('../resources/images/home-icon.png'),
     TOP_UP_ICON: require('../resources/images/topup-icon.png'),
     BALANCE_ICON: require('../resources/images/balance-icon.png'),
+    WITHDRAW_ICON: require('../resources/images/withdraw-icon.png'),
     MINIMUM_TRX : 15000,
     DEBIT : 'debit',
     CREDIT: 'credit'

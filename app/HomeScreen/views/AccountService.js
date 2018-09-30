@@ -126,7 +126,6 @@ export default class AccountService{
         });
 
     }
-
     postTransfer(transfer){
         let balance = this.account.balance.amount;
 
