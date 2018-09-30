@@ -8,15 +8,19 @@ import PropTypes from 'prop-types';
 const TopUpForm = (props) => (
             <View style={{padding: 20}}>
                 <View style={stylesBase.ROW}>
-                    <FormLabel id="labelAmount">Amount</FormLabel>
-                </View>
-                <View style={stylesBase.ROW}>
                     <FormInput
                         id="amount"
                         value={props.amount}
                         keyboardType='numeric'
-                        placeholder={'Enter Amount'}
+                        placeholder={'Amount of Money'}
                         onChangeText={props.onChangeAmount}/>
+                </View>
+                <View style={stylesBase.ROW}>
+                    <FormInput
+                        id="description"
+                        value={props.description}
+                        placeholder={'Description (optional)'}
+                        onChangeText={props.onChangeDescription}/>
                 </View>
                 <View style={stylesBase.ROW}>
                     <Button backgroundColor={'#33ad41'}
@@ -31,6 +35,9 @@ const TopUpForm = (props) => (
 
 export default TopUpForm;
 TopUpForm.propTypes = {
+    amount : PropTypes.string,
+    description : PropTypes.string,
     onChangeAmount: PropTypes.func,
+    onChangeDescription: PropTypes.func,
     onPressSubmit: PropTypes.func,
 };

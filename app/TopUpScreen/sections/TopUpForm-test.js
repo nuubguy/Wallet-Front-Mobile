@@ -10,12 +10,13 @@ describe('TopUpForm', () => {
     }
 
     describe('render', () => {
-        it('should have label amount #labelAmount', () => {
-            expect(topUpFormComponent().find('#labelAmount')).toHaveLength(1);
-        });
 
         it('should have input amount #amount', () => {
             expect(topUpFormComponent().find('#amount')).toHaveLength(1);
+        });
+
+        it('should have input description #description', () => {
+            expect(topUpFormComponent().find('#description')).toHaveLength(1);
         });
 
         it('should have input button confirm #btnConfirm', () => {
@@ -29,6 +30,13 @@ describe('TopUpForm', () => {
             const rendered = topUpFormComponent().setProps({ onChangeAmount });
             rendered.find('#amount').simulate('changeText');
             expect(onChangeAmount).toHaveBeenCalled();
+        });
+
+        it('should be call onChangeDescription() when user input description', () => {
+            const onChangeDescription = jest.fn();
+            const rendered = topUpFormComponent().setProps({ onChangeDescription: onChangeDescription });
+            rendered.find('#description').simulate('changeText');
+            expect(onChangeDescription).toHaveBeenCalled();
         });
     });
 
