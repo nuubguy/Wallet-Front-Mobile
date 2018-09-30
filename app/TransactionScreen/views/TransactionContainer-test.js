@@ -19,7 +19,7 @@ describe('TransactionContainer', () => {
     });
 
 
-    describe('onChangeAmount', () => {
+    describe('onChange', () => {
         it('should change the state of amount when there is change in input amount', () => {
             const amount = '10000';
             const wrapper = shallow(<TransactionContainer/>);
