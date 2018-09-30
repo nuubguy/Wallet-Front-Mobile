@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {Icon} from 'native-base';
+import {Text, View, StyleSheet, Image} from 'react-native';
+import * as styleBase from '../../config/Base';
+import * as config from '../../config/Constant';
 
 const styles = StyleSheet.create({
     container: {
@@ -37,8 +38,7 @@ const Balance = (props) => {
     return (
         <View>
             <View style={styles.row}>
-                <Icon name="ios-card"/>
-                {' '}
+                <Image style={styleBase.IMAGE_ICON} source={config.BALANCE_ICON}/>
                 <Text style={styles.balance}> Total Balance : </Text>
                 <View style={styles.row}>
                     <View style={styles.right}>
