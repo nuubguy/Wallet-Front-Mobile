@@ -1,12 +1,14 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Image} from 'react-native';
 import {Icon} from 'native-base';
 import Balance from '../sections/Balance';
 import Username from '../sections/Username';
 import AccountService from './AccountService';
 import * as config from '../../config/Constant';
+import * as stylesBase from '../../config/Base';
 import AppHeader from "../../routes/AppHeader";
 import TransactionHistoriesList from "../../TransactionHistoryScreen/sections/TransactionHistoriesList";
+
 
 export default class HomeContainer extends React.Component {
 
@@ -26,8 +28,8 @@ export default class HomeContainer extends React.Component {
 
     static navigationOptions = {
         drawerIcon: ({tintColor}) => (
-            <Icon name="home" style={{fontSize: 24, color: tintColor}}/>
-        )
+            <Image style={stylesBase.IMAGE_MENU} source={config.HOME_ICON}/>
+        ),
     };
 
     async componentDidMount() {
@@ -48,9 +50,9 @@ export default class HomeContainer extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={stylesBase.CONTAINER}>
                 <AppHeader title='Home' data={this.props}/>
-                <View style={styles.body}>
+                <View style={stylesBase.BODY}>
                     <View style={styles.row}>
                         <Text style={styles.hello}>
                             <Username data={this.state.username}/>
@@ -69,10 +71,6 @@ export default class HomeContainer extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f5f5f5',
-    },
     hello: {
         color: 'green',
         fontSize: 24,
@@ -94,10 +92,6 @@ const styles = StyleSheet.create({
     },
     balance: {
         flex: 1,
-    },
-    body: {
-        flex: 1,
-        alignItems: 'center',
     },
     transaction: {
         flex: 5,

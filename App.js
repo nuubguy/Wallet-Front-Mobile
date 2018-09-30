@@ -1,14 +1,14 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import AppDrawerNavigator from './app/routes/AppDrawerNavigator';
-import AppStackNavigator from './app/routes/AppStackNavigator';
+import FlashMessage from "react-native-flash-message";
 
 export default class App extends React.Component {
     render() {
         return (
             <View style={styles.container}>
                 <AppDrawerNavigator/>
-
+                <FlashMessage position="top" />
             </View>
         );
     }
