@@ -8,11 +8,9 @@ const style = {
         height: 25
     },
     CONTAINER:{
-        flex: 1,
         backgroundColor: '#f5f5f5'
     },
     BODY: {
-        flex: 1,
         alignItems: 'center',
     },
     ROW: {

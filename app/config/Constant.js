@@ -8,9 +8,12 @@ const config = {
     TOP_UP_ICON: require('../resources/images/topup-icon.png'),
     BALANCE_ICON: require('../resources/images/balance-icon.png'),
     WITHDRAW_ICON: require('../resources/images/withdraw-icon.png'),
+    TRANSFER_ICON: require('../resources/images/transfer-icon.png'),
     MINIMUM_TRX : 15000,
     DEBIT : 'debit',
-    CREDIT: 'credit'
+    CREDIT: 'credit',
+    IMAGE_DEBIT: require('../resources/images/debit.png'),
+    IMAGE_CREDIT: require('../resources/images/credit.png'),
 };
 
 module.exports = config;
