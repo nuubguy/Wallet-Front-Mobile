@@ -3,7 +3,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import TransactionContainer from './TransactionContainer';
 
-describe('TopUpContainer', () => {
+describe('WithdrawContainer', () => {
     function renderedComponent() {
         return shallow(<TransactionContainer/>);
     }
