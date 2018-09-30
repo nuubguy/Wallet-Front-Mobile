@@ -1,12 +1,12 @@
 import {createDrawerNavigator, DrawerItems} from 'react-navigation';
 import {
-    ScrollView, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, Text
+    ScrollView, SafeAreaView, View, StyleSheet, Image
 } from 'react-native';
 import React from 'react';
 
 import HomeContainer from '../HomeScreen/views/HomeContainer';
-import TopUpContainer from "../TopUpScreen/views/TopUpContainer";
-import WithdrawContainer from "../TopUpScreen/views/WithdrawContainer";
+import TopUpContainer from "../TransactionScreen/views/TopUpContainer";
+import WithdrawContainer from "../TransactionScreen/views/WithdrawContainer";
 
 const styles = StyleSheet.create({
     container: {
