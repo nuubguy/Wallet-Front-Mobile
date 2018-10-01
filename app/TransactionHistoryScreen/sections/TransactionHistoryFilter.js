@@ -47,7 +47,7 @@ export default class TransactionHistoryFilter extends React.Component {
             amount: '',
             description: '',
             currentTransactions: [],
-            sort: false
+            sort: 0
         }
         this.username = 'C00000001';
         this.account = 'A00000001';
@@ -91,11 +91,9 @@ export default class TransactionHistoryFilter extends React.Component {
     }
 
     checkBoxOnChange = () => {
-        this.setState(
-            {
-                sort: (this.state.sort === false) ? true : false
-            }
-        )
+        this.setState({
+            sort: (this.state.sort!==1)? 1:2,
+        })
         this.componentDidMount();
     }
 
@@ -110,9 +108,8 @@ export default class TransactionHistoryFilter extends React.Component {
 
         try {
             let transactions = await this.inputValidation()
-            let sortedTransactions = this.sort(transactions.data)
             this.setState({
-                currentTransactions: sortedTransactions
+                currentTransactions: transactions.data
             });
         }
         catch (e) {
@@ -121,27 +118,22 @@ export default class TransactionHistoryFilter extends React.Component {
     }
 
 
-    sort = (transaction) => {
-        return transaction.sort((a, b) => {
-            return (this.state.sort === false) ? a.amount - b.amount : b.amount - a.amount
-        })
-    }
 
     inputValidation() {
-        let account = new AccountService(this.username, this.account, config.BASE_URL);
-        let trxResponse = account.getAllTransactionList();
-        if (this.state.description !== '' && this.state.amount === '') {
-            trxResponse = account.getTransactionListBasedOnDescription(this.state.description.toLowerCase());
+        let service = new AccountService(this.username, this.account, config.BASE_URL);
+        let transactions = service.getAllTransactionList(this.state.sort)
+        if(this.state.description!==''&&this.state.amount===''){
+            transactions =service.getTransactionListBasedOnDescription(this.state.description,this.state.sort)
         }
-        if (this.state.description === '' && this.state.amount !== '') {
-            trxResponse = account.getTransactionListBasedOnAmount(this.state.amount);
+        if (this.state.description===''&&this.state.amount!==''){
+            transactions = service.getTransactionListBasedOnAmount(parseFloat(this.state.amount),this.state.sort)
         }
-        if (this.state.description !== '' && this.state.amount !== '') {
-            trxResponse = account.getTransactionListBasedOnAmountAndDescription(this.state.amount,
-                this.state.description.toLowerCase());
+        if (this.state.description!==''&& this.state.amount!==''){
+            transactions = service.getTransactionListBasedOnAmountAndDescription(parseFloat(this.state.amount),this.state.description,
+                this.state.sort)
         }
 
-        return trxResponse;
+        return transactions;
     }
 
 
@@ -156,6 +148,18 @@ export default class TransactionHistoryFilter extends React.Component {
                              descriptionOnChange={this.descriptionOnChange} checkBoxOnChange={this.checkBoxOnChange}/>
                 <TransactionList currentTransactions={this.state.currentTransactions}/>
 
+                <Fab
+                    active={this.state.active}
+                    direction="up"
+                    containerStyle={{ }}
+                    style={{ backgroundColor: '#5067FF' }}
+                    position="bottomRight"
+                    onPress={() => { this.checkBoxOnChange();}}>
+                    <Image
+                        style={{width: 20, height: 20}}
+                        source={{uri: 'https://static.thenounproject.com/png/40256-200.png'}}
+                    />
+                </Fab>
             </View>
         );
     }
