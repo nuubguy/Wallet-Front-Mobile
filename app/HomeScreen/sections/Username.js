@@ -9,8 +9,9 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 24,
-        color: '#101010',
+        color: '#333333',
         flexDirection: 'row',
+        fontWeight: 'bold'
     },
     balance: {
         fontSize: 18,
@@ -29,9 +30,10 @@ const Username = ({data}) => {
     return (
         <View>
             <View style={styles.row}>
-                <Icon name="ios-person"/>
+
+                <Text style={styles.text}> Hello, </Text>
                 {' '}
-                <Text style={styles.text}> Hi, </Text>
+                {' '}
                 <View style={styles.right}>
                     <Text style={styles.text} id="username">
                         {' '}
