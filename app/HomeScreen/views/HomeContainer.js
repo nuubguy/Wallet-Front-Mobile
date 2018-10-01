@@ -6,7 +6,7 @@ import AccountService from './AccountService';
 import * as config from '../../config/Constant';
 import * as stylesBase from '../../config/Base';
 import AppHeader from "../../routes/AppHeader";
-import TransactionHistoriesList from "../../TransactionHistoryScreen/sections/TransactionHistoriesList";
+import TransactionHeader from "../../TransactionHistoryScreen/sections/TransactionHeader";
 
 
 export default class HomeContainer extends React.Component {
@@ -32,6 +32,9 @@ export default class HomeContainer extends React.Component {
             </View>
         ),
     };
+
+
+
 
     async componentDidMount() {
         try {
@@ -64,7 +67,7 @@ export default class HomeContainer extends React.Component {
                     </View>
                 </View>
                 <View style={styles.transaction}>
-                    <TransactionHistoriesList data={this.state.transactions} navigate={this.props.navigation}/>
+                    <TransactionHeader data={this.state.transactions} navigate={this.props.navigation}/>
                 </View>
             </View>
         );
