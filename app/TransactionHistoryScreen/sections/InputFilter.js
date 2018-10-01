@@ -16,11 +16,15 @@ export default class InputFilter extends React.Component {
   render() {
     return (
       <View>
-        <Button full info onPress={()=>{this.props.showDialog()}}>
+        <Button full info onPress={() => { this.props.showDialog(); }}>
           <Text>Filter</Text>
         </Button>
         <Dialog.Container visible={this.props.dialogVisible}>
           <Dialog.Title>Find Transaction</Dialog.Title>
+          <Dialog.Input
+            placeholder="Enter Amount"
+            onChangeText={(e) => { this.props.inputOnChange(e); }}
+          />
           <Dialog.Input
             placeholder="Enter Description"
             onChangeText={(e) => { this.props.descriptionOnChange(e); }}
