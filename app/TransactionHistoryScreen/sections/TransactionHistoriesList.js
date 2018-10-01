@@ -5,6 +5,27 @@ import {
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 
+function currencyFormatter(amount) {
+    const formatter = new Intl.NumberFormat('id-ID', {
+        minimumFractionDigits: 2,
+    });
+    return formatter.format(amount);
+}
+
+function dateFormatter(date) {
+    const aDate = Date.parse(date);
+
+    let newDate = new Date(aDate).toDateString();
+    newDate = newDate.split(' ').slice(1).join(' ');
+
+    let newTime = new Date(aDate).toLocaleTimeString();
+    newTime = newTime.split(':');
+
+    const timeZone = newTime[2].split(' ');
+
+    return `${newDate}, ${newTime[0]}:${newTime[1]} ${timeZone[1]}`;
+}
+
 
 const TransactionHistoriesList = props => (
     <Container>
@@ -30,13 +51,13 @@ const TransactionHistoriesList = props => (
                             <Left/>
                             <Body>
                             <Text>{transaction.transactionId}</Text>
-                            <Text>{transaction.amount}</Text>
+                            <Text>{currencyFormatter(transaction.amount)+' '+transaction.currency}</Text>
                             </Body>
                             <Right>
                                 <Text
                                     note
                                 >
-                                    {`${transaction.dateTime.substring(0, 10)}${'  '}${transaction.dateTime.substring(12, 16)}`}
+                                    {dateFormatter(transaction.dateTime)}
                                 </Text>
                                 <Text note>{transaction.transactionType}</Text>
                             </Right>
