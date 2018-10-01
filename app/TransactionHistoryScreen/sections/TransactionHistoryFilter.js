@@ -150,7 +150,7 @@ export default class TransactionFilter extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <AppHeader title="Transaction History"/>
+                <AppHeader title="Transaction History" data={this.props}/>
                 <InputFilter inputOnChange={this.inputOnChange} handleSubmit={this.handleSubmit}
                              showDialog={this.showDialog}
                              handleCancel={this.handleCancel} dialogVisible={this.state.dialogVisible}
