@@ -4,6 +4,28 @@ import {
 } from 'native-base';
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import TransactionList from "./TransactionList";
+
+function currencyFormatter(amount) {
+    const formatter = new Intl.NumberFormat('id-ID', {
+        minimumFractionDigits: 2,
+    });
+    return formatter.format(amount);
+}
+
+function dateFormatter(date) {
+    const aDate = Date.parse(date);
+
+    let newDate = new Date(aDate).toDateString();
+    newDate = newDate.split(' ').slice(1).join(' ');
+
+    let newTime = new Date(aDate).toLocaleTimeString();
+    newTime = newTime.split(':');
+
+    const timeZone = newTime[2].split(' ');
+
+    return `${newDate}, ${newTime[0]}:${newTime[1]} ${timeZone[1]}`;
+}
 
 
 const TransactionHistoriesList = props => (
@@ -16,6 +38,7 @@ const TransactionHistoriesList = props => (
                     <Icon
                         name="ios-arrow-forward"
                         onPress={() => {
+                            props.navigate.navigate('Transaction History', { transactions: props.data });
                         }}
                         style={{color: 'white'}}
                     />
@@ -23,27 +46,7 @@ const TransactionHistoriesList = props => (
                 </Right>
             </View>
 
-            <List id="transactionsId">
-                {
-                    props.data.map(transaction => (
-                        <ListItem avatar key={transaction.transactionId}>
-                            <Left/>
-                            <Body>
-                            <Text>{transaction.transactionId}</Text>
-                            <Text>{transaction.amount}</Text>
-                            </Body>
-                            <Right>
-                                <Text
-                                    note
-                                >
-                                    {`${transaction.dateTime.substring(0, 10)}${'  '}${transaction.dateTime.substring(12, 16)}`}
-                                </Text>
-                                <Text note>{transaction.transactionType}</Text>
-                            </Right>
-                        </ListItem>
-                    ))
-                }
-            </List>
+        <TransactionList currentTransactions={props.data}/>
         </Content>
     </Container>
 );
