@@ -121,8 +121,8 @@ export default class TransactionContainer extends Component {
         this.service.postTransaction(jsonRequest)
             .then(() => {
                 showMessage({
-                    message: "Transaction Success",
-                    description: "Please kindly check your wallet balance",
+                    message: "Transaction successful",
+                    description: "Please check your balance",
                     type: "success",
                     icon: "success"
                 });
