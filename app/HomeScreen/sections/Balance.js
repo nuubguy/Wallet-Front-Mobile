@@ -10,8 +10,10 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        color: '#101010',
+        color: '#333333',
         flexDirection: 'row',
+        marginLeft: 10,
+        fontWeight: 'bold'
     },
     balance: {
         fontSize: 18,
@@ -39,7 +41,6 @@ const Balance = (props) => {
         <View>
             <View style={styles.row}>
                 <Image style={styleBase.IMAGE_ICON} source={config.BALANCE_ICON}/>
-                <Text style={styles.balance}> Total Balance : </Text>
                 <View style={styles.row}>
                     <View style={styles.right}>
                         <Text style={styles.text} id="endBalance">
