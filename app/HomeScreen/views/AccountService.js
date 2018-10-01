@@ -220,35 +220,24 @@ export default class AccountService{
 
         let getTransactionType = (transactionType, targetType) => {
             if(transactionType === targetType){
-                return {
-                    accountId: accountId,
-                    customer: {
-                        customerId: customerId,
-                        name: this.account.customer.name,
-                        info: this.account.customer.info,
-                        disabled: this.account.customer.disabled
-                    }
-                }
+                return accountId;
+
             }
-            return null;
+            return "";
         };
 
         let transactionRequest = {
+            debitAccountId: getTransactionType(transaction.transactionType, Constant.DEBIT),
+            creditAccountId: getTransactionType(transaction.transactionType, Constant.CREDIT),
             transactionId: null,
-            credit: getTransactionType(transaction.transactionType, Constant.CREDIT),
-            debit: getTransactionType(transaction.transactionType, Constant.DEBIT),
-            balance: {
-                amount: balance,
-                currency: 'IDR'
-            },
             dateTime: null,
+            description: transaction.description,
             transactionAmount: {
                 amount: transaction.amount,
                 currency: 'IDR'
             },
-            description: transaction.description
-        };
 
+        };
         let postTransactionUrl = `${this.baseUrl}/transactions`;
         return axios.post(postTransactionUrl, transactionRequest, {headers : headers}).then((response) =>{
 
