@@ -6,35 +6,14 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import TransactionList from "./TransactionList";
 
-function currencyFormatter(amount) {
-    const formatter = new Intl.NumberFormat('id-ID', {
-        minimumFractionDigits: 2,
-    });
-    return formatter.format(amount);
-}
-
-function dateFormatter(date) {
-    const aDate = Date.parse(date);
-
-    let newDate = new Date(aDate).toDateString();
-    newDate = newDate.split(' ').slice(1).join(' ');
-
-    let newTime = new Date(aDate).toLocaleTimeString();
-    newTime = newTime.split(':');
-
-    const timeZone = newTime[2].split(' ');
-
-    return `${newDate}, ${newTime[0]}:${newTime[1]} ${timeZone[1]}`;
-}
 
 
-const TransactionHistoriesList = props => (
+const TransactionHeader = props => (
     <Container>
         <Content>
             <View style={styles.row}>
-                <Text style={{color: 'white'}}>Transaction Histories</Text>
+                <Text style={{color: 'white'}}>Transaction History</Text>
                 <Right>
-                    {/* <Button transparent> */}
                     <Icon
                         name="ios-arrow-forward"
                         onPress={() => {
@@ -42,7 +21,6 @@ const TransactionHistoriesList = props => (
                         }}
                         style={{color: 'white'}}
                     />
-                    {/* </Button> */}
                 </Right>
             </View>
 
@@ -79,4 +57,4 @@ const styles = StyleSheet.create({
         flex: 5,
     },
 });
-export default TransactionHistoriesList;
+export default TransactionHeader;
