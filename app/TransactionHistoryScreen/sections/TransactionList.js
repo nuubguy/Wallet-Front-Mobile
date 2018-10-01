@@ -5,10 +5,7 @@ import {
 import {
   Body, Left, ListItem, Right, Text,
 } from 'native-base';
-import AppHeader from '../../routes/AppHeader';
-import InputFilter from './InputFilter';
-import AccountService from '../../HomeScreen/views/AccountService';
-import * as config from '../../config/Constant';
+import moment from 'moment';
 
 const styles = StyleSheet.create({
   container: {
@@ -45,17 +42,7 @@ function currencyFormatter(amount) {
 }
 
 function dateFormatter(date) {
-  const aDate = Date.parse(date);
-
-  let newDate = new Date(aDate).toDateString();
-  newDate = newDate.split(' ').slice(1).join(' ');
-
-  let newTime = new Date(aDate).toLocaleTimeString();
-  newTime = newTime.split(':');
-
-  const timeZone = newTime[2].split(' ');
-
-  return `${newDate}, ${newTime[0]}:${newTime[1]} ${timeZone[1]}`;
+    return moment(date).format('MMM DD YYYY, HH:mm A')
 }
 
 export default class TransactionList extends React.Component {
