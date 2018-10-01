@@ -8,11 +8,8 @@ const config = {
     TOP_UP_ICON: require('../resources/images/topup-icon.png'),
     BALANCE_ICON: require('../resources/images/balance-icon.png'),
     WITHDRAW_ICON: require('../resources/images/withdraw-icon.png'),
-<<<<<<< HEAD
     TRANSFER_ICON: require('../resources/images/transfer-icon.png'),
-=======
     TRANSACTION_HISTORY: require('../resources/images/transaction-history.png'),
->>>>>>> master
     MINIMUM_TRX : 15000,
     DEBIT : 'debit',
     CREDIT: 'credit',
