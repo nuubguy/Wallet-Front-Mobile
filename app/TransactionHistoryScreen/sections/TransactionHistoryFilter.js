@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class TransactionFilter extends React.Component {
+export default class TransactionHistoryFilter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -68,7 +68,6 @@ export default class TransactionFilter extends React.Component {
                 amount: '',
             }
         )
-
     };
 
     handleCancel = () => {
@@ -92,7 +91,6 @@ export default class TransactionFilter extends React.Component {
     }
 
     checkBoxOnChange = () => {
-        console.log('aaa')
         this.setState(
             {
                 sort: (this.state.sort === false) ? true : false

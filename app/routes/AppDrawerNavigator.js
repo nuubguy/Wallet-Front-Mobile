@@ -7,7 +7,7 @@ import React from 'react';
 import HomeContainer from '../HomeScreen/views/HomeContainer';
 import TopUpContainer from '../TransactionScreen/views/TopUpContainer';
 import WithdrawContainer from '../TransactionScreen/views/WithdrawContainer';
-import TransactionFilter from "../TransactionHistoryScreen/sections/TransactionHistoryFilter";
+import TransactionHistoryFilter from "../TransactionHistoryScreen/sections/TransactionHistoryFilter";
 
 const styles = StyleSheet.create({
     container: {
@@ -39,10 +39,10 @@ const CustomDrawerComponent = props => (
 
 
 const AppDrawerNavigator = createDrawerNavigator({
-    'Home': HomeContainer,
-    'Withdraw': WithdrawContainer,
-    'Top Up': TopUpContainer,
-    'Transaction History': TransactionFilter,
+  Home: HomeContainer,
+  'Top Up': TopUpContainer,
+  Withdraw: WithdrawContainer,
+  'Transaction History': TransactionHistoryFilter,
 }, {
     contentComponent: CustomDrawerComponent,
     contentOptions: {
