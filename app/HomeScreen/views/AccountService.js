@@ -58,6 +58,157 @@ export default class AccountService{
         });
     }
 
+
+    getAllTransactionList() {
+        const accountId = this.accountId;
+        const baseUrl = this.baseUrl;
+        const transactionListUrl = `${baseUrl}/transactions/?accountId=A00000001&limitResultFromLatest=&description=&amount=&status=`;
+        return axios.get(transactionListUrl).then(response => ({
+            status: response.status,
+            data: response.data.map((item) => {
+                function getTransactionType(item) {
+                    if (item.credit === accountId || item.credit.accountId === accountId) {
+                        return 'credit';
+                    }
+
+                    if (item.debit === accountId || item.debit.accountId === accountId) {
+                        return 'debit';
+                    }
+                }
+
+                return {
+                    transactionId: item.transactionId,
+                    transactionType: getTransactionType(item),
+                    dateTime: item.dateTime,
+                    amount: item.transactionAmount.amount,
+                    currency: item.transactionAmount.currency,
+                    description: item.description,
+                };
+            }),
+        }));
+    }
+
+    getTransactionListBasedOnDescription(description) {
+        const accountId = this.accountId;
+        const baseUrl = this.baseUrl;
+        const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&
+    limitResultFromLatest=&description=${description}&amount=`;
+        return axios.get(transactionListUrl).then(response => ({
+            status: response.status,
+            data: response.data.map((item) => {
+                function getTransactionType(item) {
+                    if (item.credit === accountId || item.credit.accountId === accountId) {
+                        return 'credit';
+                    }
+
+                    if (item.debit === accountId || item.debit.accountId === accountId) {
+                        return 'debit';
+                    }
+                }
+
+                return {
+                    transactionId: item.transactionId,
+                    transactionType: getTransactionType(item),
+                    dateTime: item.dateTime,
+                    amount: item.transactionAmount.amount,
+                    currency: item.transactionAmount.currency,
+                    description: item.description,
+                };
+            }),
+        }));
+    }
+
+    getTransactionListBasedOnAmount(amount) {
+        const accountId = this.accountId;
+        const baseUrl = this.baseUrl;
+        const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&
+    limitResultFromLatest=&description=&amount=${parseFloat(amount)}`;
+        return axios.get(transactionListUrl).then(response => ({
+            status: response.status,
+            data: response.data.map((item) => {
+                function getTransactionType(item) {
+                    if (item.credit === accountId || item.credit.accountId === accountId) {
+                        return 'credit';
+                    }
+
+                    if (item.debit === accountId || item.debit.accountId === accountId) {
+                        return 'debit';
+                    }
+                }
+
+                return {
+                    transactionId: item.transactionId,
+                    transactionType: getTransactionType(item),
+                    dateTime: item.dateTime,
+                    amount: item.transactionAmount.amount,
+                    currency: item.transactionAmount.currency,
+                    description: item.description,
+                };
+            }),
+        }));
+    }
+
+    getTransactionListBasedOnAmountAndDescription(amount, description) {
+        const accountId = this.accountId;
+        const baseUrl = this.baseUrl;
+        const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&
+    limitResultFromLatest=&description=${description}&amount=${amount}`;
+        return axios.get(transactionListUrl).then(response => ({
+            status: response.status,
+            data: response.data.map((item) => {
+                function getTransactionType(item) {
+                    if (item.credit === accountId || item.credit.accountId === accountId) {
+                        return 'credit';
+                    }
+
+                    if (item.debit === accountId || item.debit.accountId === accountId) {
+                        return 'debit';
+                    }
+                }
+
+                return {
+                    transactionId: item.transactionId,
+                    transactionType: getTransactionType(item),
+                    dateTime: item.dateTime,
+                    amount: item.transactionAmount.amount,
+                    currency: item.transactionAmount.currency,
+                    description: item.description,
+                };
+            }),
+        }));
+    }
+
+    getAllAndSortByAmount() {
+        const accountId = this.accountId;
+        const baseUrl = this.baseUrl;
+        const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&
+    limitResultFromLatest=&description=&amount=&status=1`;
+        return axios.get(transactionListUrl).then(response => ({
+            status: response.status,
+            data: response.data.map((item) => {
+                function getTransactionType(item) {
+                    if (item.credit === accountId || item.credit.accountId === accountId) {
+                        return 'credit';
+                    }
+
+                    if (item.debit === accountId || item.debit.accountId === accountId) {
+                        return 'debit';
+                    }
+                }
+
+                return {
+                    transactionId: item.transactionId,
+                    transactionType: getTransactionType(item),
+                    dateTime: item.dateTime,
+                    amount: item.transactionAmount.amount,
+                    currency: item.transactionAmount.currency,
+                    description: item.description,
+                };
+            }),
+        }));
+    }
+
+
     postTransaction(transaction){
         let accountId = this.accountId;
         let customerId = this.customerId;

@@ -4,6 +4,7 @@ import {
 } from 'native-base';
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import TransactionList from "./TransactionList";
 
 function currencyFormatter(amount) {
     const formatter = new Intl.NumberFormat('id-ID', {
@@ -37,6 +38,7 @@ const TransactionHistoriesList = props => (
                     <Icon
                         name="ios-arrow-forward"
                         onPress={() => {
+                            props.navigate.navigate('Transaction History', { transactions: props.data });
                         }}
                         style={{color: 'white'}}
                     />
@@ -44,27 +46,7 @@ const TransactionHistoriesList = props => (
                 </Right>
             </View>
 
-            <List id="transactionsId">
-                {
-                    props.data.map(transaction => (
-                        <ListItem avatar key={transaction.transactionId}>
-                            <Left/>
-                            <Body>
-                            <Text>{transaction.transactionId}</Text>
-                            <Text>{currencyFormatter(transaction.amount)+' '+transaction.currency}</Text>
-                            </Body>
-                            <Right>
-                                <Text
-                                    note
-                                >
-                                    {dateFormatter(transaction.dateTime)}
-                                </Text>
-                                <Text note>{transaction.transactionType}</Text>
-                            </Right>
-                        </ListItem>
-                    ))
-                }
-            </List>
+        <TransactionList currentTransactions={props.data}/>
         </Content>
     </Container>
 );
