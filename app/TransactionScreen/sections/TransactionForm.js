@@ -12,14 +12,14 @@ const TransactionForm = (props) => (
                 id="amount"
                 value={props.amount}
                 keyboardType='numeric'
-                placeholder={'Amount of money'}
+                placeholder={'Amount (Min 15000)'}
                 onChangeText={props.onChangeAmount}/>
         </View>
         <View style={stylesBase.ROW}>
             <FormInput
                 id="description"
                 value={props.description}
-                placeholder={'Description (optional)'}
+                placeholder={'Description (Max 15 characters)'}
                 onChangeText={props.onChangeDescription}/>
         </View>
         <View style={stylesBase.ROW}>

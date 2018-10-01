@@ -12,7 +12,7 @@ const TransactionHeader = props => (
     <Container>
         <Content>
             <View style={styles.row}>
-                <Text style={{color: 'white'}}>Transaction History</Text>
+                <Text style={{color: 'white', fontSize: 18}}>Recent Transactions</Text>
                 <Right>
                     <Icon
                         name="ios-arrow-forward"
