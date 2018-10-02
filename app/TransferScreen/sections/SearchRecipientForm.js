@@ -11,7 +11,7 @@ const SearchRecipientForm = props => (
       <FormInput
         id="account"
         value={props.account}
-        placeholder="Recipient Account (Min. 8 Characters)"
+        placeholder="Payee account ID"
         onChangeText={props.onChangeAccount}
       />
     </View>
@@ -20,8 +20,7 @@ const SearchRecipientForm = props => (
         id="btnCheck"
         title="Check"
         onPress={props.onPressCheck}
-        backgroundColor="#AED581"
-        disabled={props.valid}
+        backgroundColor="#33ad41"
       />
     </View>
   </View>
