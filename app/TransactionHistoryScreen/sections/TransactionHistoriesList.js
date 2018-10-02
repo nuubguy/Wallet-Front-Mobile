@@ -1,17 +1,17 @@
 import {
-    Body, Container, Content, Icon, List, ListItem, Right, Text, Left, Thumbnail, Image
+    Body, Container, Content, Icon, List, ListItem, Right, Text, Left, Thumbnail, Image,
 } from 'native-base';
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import * as config from '../../config/Constant';
 
 
-const getImage = (type) =>{
-    if(type === 'credit'){
+const getImage = (type) => {
+    if (type === 'credit') {
         return config.IMAGE_CREDIT;
     }
     return config.IMAGE_DEBIT;
-}
+};
 
 const TransactionHistoriesList = props => (
     <Container>
@@ -34,7 +34,8 @@ const TransactionHistoriesList = props => (
                         <ListItem avatar key={transaction.transactionId}>
                             <Left>
                                 <Thumbnail
-                                    source={getImage(transaction.transactionType)}/>
+                                    source={getImage(transaction.transactionType)}
+                                />
                             </Left>
                             <Body style={{paddingBottom: 22}}>
                             <Text>{transaction.transactionId}</Text>

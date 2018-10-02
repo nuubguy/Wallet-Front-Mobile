@@ -1,29 +1,28 @@
 import {createDrawerNavigator, DrawerItems} from 'react-navigation';
 import {
-    ScrollView, SafeAreaView, View, StyleSheet, Image, Dimensions
+    ScrollView, SafeAreaView, View, StyleSheet, Image, Dimensions,
 } from 'react-native';
 import React from 'react';
-
-const {width, height} = Dimensions.get('screen');
 
 import HomeContainer from '../HomeScreen/views/HomeContainer';
 import TopUpContainer from '../TransactionScreen/views/TopUpContainer';
 import WithdrawContainer from '../TransactionScreen/views/WithdrawContainer';
-import TransactionHistoryFilter from "../TransactionHistoryScreen/sections/TransactionHistoryFilter";
-import TransferContainer from "../TransferScreen/views/TransferContainer";
+import TransactionHistoryFilter from '../TransactionHistoryScreen/sections/TransactionHistoryFilter';
+import TransferContainer from '../TransferScreen/views/TransferContainer';
+
+const {width, height} = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#c1faff',
         height: '100%',
-        // paddingLeft: 20
     },
     menu: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#0fb9b1',
         padding: 10,
-        height: 160
+        height: 160,
     },
     logo: {
         height: 110,
@@ -47,8 +46,8 @@ const AppDrawerNavigator = createDrawerNavigator({
 
     Home: HomeContainer,
     'Top Up': TopUpContainer,
-    'Withdraw': WithdrawContainer,
-    'Transfer': TransferContainer,
+    Withdraw: WithdrawContainer,
+    Transfer: TransferContainer,
     'Transaction History': TransactionHistoryFilter,
 
 }, {
@@ -56,8 +55,8 @@ const AppDrawerNavigator = createDrawerNavigator({
     contentOptions: {
         activeTintColor: '#b96e68',
         drawerWidth: Math.min(height, width) * 0.5,
-        initialRouteName: 'Home'
-    }
+        initialRouteName: 'Home',
+    },
 
 });
 

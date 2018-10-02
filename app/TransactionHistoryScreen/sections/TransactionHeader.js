@@ -20,7 +20,6 @@ const TransactionHeader = props => (
           />
         </Right>
       </View>
-
       <TransactionList currentTransactions={props.data} />
     </Content>
   </Container>

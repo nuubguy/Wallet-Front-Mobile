@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import {Icon} from 'native-base';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import {HOME_SCREEN_STYLE} from '../../config/Base';
 
 const AccountId = ({data}) => {
