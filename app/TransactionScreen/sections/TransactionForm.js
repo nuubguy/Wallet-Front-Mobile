@@ -12,7 +12,7 @@ const TransactionForm = (props) => (
                 id="amount"
                 value={props.amount}
                 keyboardType='numeric'
-                placeholder={'Amount (Min. 15.001)'}
+                placeholder={'Amount (Min. 15.000,00)'}
                 containerStyle={{width: '90%'}}
                 onChangeText={props.onChangeAmount}/>
         </View>
