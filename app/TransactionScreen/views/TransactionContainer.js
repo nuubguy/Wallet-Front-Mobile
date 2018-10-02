@@ -62,7 +62,7 @@ export default class TransactionContainer extends Component {
 
     isValidAmount = (Amount) => {
 
-        return Amount.replace('.', '') > config.MINIMUM_TRX;
+        return Amount >= config.MINIMUM_TRX && Amount <= config.MAXIMUM_TRX;
     }
 
     handleChangeAmount = (amount) => {
@@ -121,7 +121,7 @@ export default class TransactionContainer extends Component {
             })
             .catch((error) => {
                 showMessage({
-                    message: "Transaction Fail",
+                    message: "Oops! ",
                     description: error.data,
                     type: "danger",
                     icon: "danger"
