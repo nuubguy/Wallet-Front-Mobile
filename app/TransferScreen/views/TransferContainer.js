@@ -24,9 +24,11 @@ export default class TransferContainer extends Component {
             btnCheckDisabled: true,
             balance: {
                 amount: '',
-                currency: ''
+                currency: '',
+
             },
-            isFoundRecipient: false,
+            payees: [],
+            isEditable: false,
             transactionType: config.CREDIT
 
         }
@@ -44,24 +46,6 @@ export default class TransferContainer extends Component {
         ),
     };
 
-    renderTransferForm = () => {
-        if (this.state.isFoundRecipient) {
-            return (
-                <TransferForm
-                    recipientAccountName={this.state.recipientAccountName}
-                    amount={this.state.amount}
-                    onChangeAmount={this.handleChangeAmount}
-                    description={this.state.description}
-                    onChangeDescription={this.handleChangeDescription}
-                    onPressSubmit={this.handleSubmit}
-                    valid={this.state.btnConfirmDisabled}
-                    isFoundRecipient={this.state.isFoundRecipient}
-                />
-            )
-        }
-        return null;
-    }
-
     render() {
         return (
             <View>
@@ -77,7 +61,16 @@ export default class TransferContainer extends Component {
                             onChangeAccount={this.handleChangeAccount}
                             onPressCheck={this.handleClickCheck}
                         />
-                        { this.renderTransferForm() }
+                        <TransferForm
+                            recipientAccountName={this.state.recipientAccountName}
+                            amount={this.state.amount}
+                            onChangeAmount={this.handleChangeAmount}
+                            description={this.state.description}
+                            onChangeDescription={this.handleChangeDescription}
+                            onPressSubmit={this.handleSubmit}
+                            valid={this.state.btnConfirmDisabled}
+                            isEditable={this.state.isEditable}
+                        />
                     </View>
                 </View>
             </View>
@@ -85,49 +78,37 @@ export default class TransferContainer extends Component {
     }
 
     isValidAmount(Amount) {
-        if (Amount.replace('.', '') > config.MINIMUM_TRX) {
+        if (Amount.replace('.', '') >= config.MINIMUM_TRX) {
             return true;
         }
         return false;
     }
 
     handleClickCheck = () => {
-        this.service.getAccountById(this.state.recipientAccountId)
-            .then((response) => {
+
+        let inputAccountId = this.state.recipientAccountId;
+        for (let i = 0; i < this.state.payees.length; i++) {
+            if(this.state.payees[i].accountId === inputAccountId){
                 this.setState({
-                    recipientAccountId: 'A000000002',
-                    recipientAccountName: 'Akhmad Fauzan',
-                    isFoundRecipient: true
+                    isEditable: true,
+                    recipientAccountName: this.state.payees[i].customer.name
                 });
-            })
-            .catch((error) => {
-                showMessage({
-                    message: "Transaction Fail",
-                    description: error.data || error.message,
-                    type: "danger",
-                    icon: "danger"
-                });
-                console.log(JSON.stringify(error) + 'error ini')
+                return;
+            }
+            showMessage({
+                message: "Account not found",
+                type: "danger",
+                icon: "danger"
             });
-        // this.setState({
-        //     recipientAccountId: 'A000000002',
-        //     recipientAccountName: 'Akhmad Fauzan',
-        //     isFoundRecipient: true
-        // });
+        }
     };
 
     handleChangeAccount = (recipientAccount) => {
         this.setState({
-            btnCheckDisabled: true,
-            isFoundRecipient: false
+            recipientAccountId: recipientAccount,
+            recipientAccountName: '',
+            isEditable: false,
         });
-        if (recipientAccount.length >= 8 ) {
-            this.setState({
-                recipientAccountId: recipientAccount,
-                isFoundRecipient: false,
-                btnCheckDisabled: false
-            });
-        }
     };
 
     handleChangeAmount = (amount) => {
@@ -149,8 +130,9 @@ export default class TransferContainer extends Component {
             this.setState({
                 balance: {
                     amount: response.data.balance.amount,
-                    currency: response.data.balance.currency
-                }
+                    currency: response.data.balance.currency,
+                },
+                payees: response.data.payees
             })
         }
         catch (error) {
@@ -169,10 +151,10 @@ export default class TransferContainer extends Component {
         let jsonRequest = {
             amount: this.state.amount.replace('.', ''),
             description: this.state.description,
-            balance: this.state.balance
+            accountId: this.state.recipientAccountId
         }
 
-        this.service.postTransfer(jsonRequest, this.state.recipientAccountId)
+        this.service.postTransfer(jsonRequest)
             .then(() => {
                 showMessage(Object.assign({
                     message: "Transaction successful",
@@ -189,6 +171,7 @@ export default class TransferContainer extends Component {
                     type: "danger",
                     icon: "danger"
                 });
+
             });
     };
 }
