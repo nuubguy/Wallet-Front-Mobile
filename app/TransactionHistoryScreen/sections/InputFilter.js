@@ -14,23 +14,26 @@ export default class InputFilter extends React.Component {
   render() {
     return (
       <View>
-          <Button
-              title="Filter"
-              onPress={() => { this.props.showDialog(); }}
-              backgroundColor="#F4511E"
-          />
+        <Button
+          id="Filter"
+          title="Filter"
+          onPress={() => { this.props.showDialog(); }}
+          backgroundColor="#F4511E"
+        />
         <Dialog.Container visible={this.props.dialogVisible}>
           <Dialog.Title>Find Transaction</Dialog.Title>
           <Dialog.Input
+            id="amount"
             placeholder="Enter Amount"
             onChangeText={(e) => { this.props.inputOnChange(e); }}
           />
           <Dialog.Input
+            id="decription"
             placeholder="Enter Description"
             onChangeText={(e) => { this.props.descriptionOnChange(e); }}
           />
-          <Dialog.Button label="Cancel" onPress={this.props.handleCancel} />
-          <Dialog.Button label="Submit" onPress={this.props.handleSubmit} />
+          <Dialog.Button id="cancel" label="Cancel" onPress={this.props.handleCancel} />
+          <Dialog.Button id="submit" label="Submit" onPress={this.props.handleSubmit} />
         </Dialog.Container>
       </View>
 

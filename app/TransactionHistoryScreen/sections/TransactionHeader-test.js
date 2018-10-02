@@ -26,5 +26,20 @@ describe('TransactionHeader', () => {
         expect(wrapper.find('#naviagateIcon').length).toBe(1);
     });
 
+    it('should show TransactionList ', () => {
+        const wrapper = shallow(<TransactionHeader data={transactions}/>);
+        expect(wrapper.find('TransactionList').length).toBe(1);
+    });
+
+    it('should redirect to the different page ', () => {
+        const wrapper = shallow(<TransactionHeader data={transactions}/>);
+        const callbackFn = jest.fn();
+        wrapper.setProps({navigate:callbackFn});
+        wrapper.find('#naviagateIcon').simulate('click');
+        expect(callbackFn).toHaveBeenCalledTimes(0);
+
+
+    });
+
 
 });

@@ -59,13 +59,13 @@ export default class TransactionHistoryFilter extends React.Component {
     };
 
     inputOnChange = (value) => {
-        if (value.match(/^[0-9]*$/g)) {
-            this.setState(
-                {
-                    amount: '',
-                }
-            )
-        }
+        // if (value.match(/^[0-9]*$/g)) {
+        //     this.setState(
+        //         {
+        //             amount: '',
+        //         }
+        //     )
+        // }
 
         this.setState({
                 amount: value
@@ -113,8 +113,7 @@ export default class TransactionHistoryFilter extends React.Component {
         let service = new AccountService(this.username, this.account, config.BASE_URL);
         let transactions = service.getAllTransactionList(this.state.sort)
         if (this.state.description !== '' && this.state.amount === '') {
-            tra
-            nsactions = service.getTransactionListBasedOnDescription(this.state.description, this.state.sort)
+            transactions = service.getTransactionListBasedOnDescription(this.state.description, this.state.sort)
         }
         if (this.state.description === '' && this.state.amount !== '') {
             transactions = service.getTransactionListBasedOnAmount(parseFloat(this.state.amount), this.state.sort)
