@@ -16,7 +16,7 @@ export default class TransactionContainer extends Component {
         this.state = {
             amount: '',
             description: '',
-            isDisabled: true,
+            btnConfirmDisabled: true,
             balance: {
                 amount: '',
                 currency: ''
@@ -38,16 +38,9 @@ export default class TransactionContainer extends Component {
         ),
     };
 
-
-    currencyFormatter(amount) {
-        const formatter = new Intl.NumberFormat('en-ID');
-        return formatter.format(amount);
-    }
-
     render() {
         return (
             <View>
-
                 <View style={styles.container}>
                     <View style={styles.box}>
                         <Balance data={this.state.balance}/>
@@ -59,7 +52,7 @@ export default class TransactionContainer extends Component {
                             description={this.state.description}
                             onChangeDescription={this.handleChangeDescription}
                             onPressSubmit={this.handleSubmit}
-                            valid={this.state.isDisabled}
+                            valid={this.state.btnConfirmDisabled}
                         />
                     </View>
                 </View>
@@ -67,21 +60,19 @@ export default class TransactionContainer extends Component {
         );
     }
 
-    isValidAmount(Amount) {
-        if (Amount.replace('.', '') > config.MINIMUM_TRX) {
-            return true;
-        }
-        return false;
+    isValidAmount = (Amount) => {
+
+        return Amount.replace('.', '') > config.MINIMUM_TRX;
     }
 
     handleChangeAmount = (amount) => {
         let inAmount = amount.replace(/[^0-9]/g, '');
-        // let finalAmount = this.currencyFormatter(inAmount);
         this.setState({btnConfirmDisabled: true})
         if (this.isValidAmount(inAmount)) {
             this.setState({btnConfirmDisabled: false})
         }
         this.setState({amount: inAmount});
+
     };
 
     handleChangeDescription = (description) => {
@@ -125,7 +116,7 @@ export default class TransactionContainer extends Component {
                     description: "Please check your balance",
                     type: "success",
                     icon: "success",
-                },stylesBase.MESSAGE_SUCCESS));
+                }, stylesBase.MESSAGE_SUCCESS));
                 this.props.navigation.navigate('Home')
             })
             .catch((error) => {
@@ -135,6 +126,7 @@ export default class TransactionContainer extends Component {
                     type: "danger",
                     icon: "danger"
                 });
+                console.log('error ' + JSON.stringify(error));
             });
     };
 }
