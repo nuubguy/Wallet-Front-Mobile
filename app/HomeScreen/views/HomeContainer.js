@@ -33,9 +33,6 @@ export default class HomeContainer extends React.Component {
         ),
     };
 
-
-
-
     async componentDidMount() {
         try {
             let account = new AccountService(this.username, this.account, config.BASE_URL);
