@@ -21,7 +21,7 @@ export default class TransactionHistoryFilter extends React.Component {
             amount: '',
             description: '',
             currentTransactions: [],
-            sort: 1,
+            sort: 0,
             isTrue: true,
         }
         this.username = 'C00000001';
