@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    View, StyleSheet, Image
+    View, StyleSheet, Image,
 } from 'react-native';
 import AppHeader from '../../routes/AppHeader';
 import InputFilter from "./InputFilter";
@@ -9,37 +9,9 @@ import * as config from "../../config/Constant";
 import {showMessage} from "react-native-flash-message";
 import TransactionList from "./TransactionList";
 import {
-    Fab
+    Fab, Icon
 } from 'native-base';
 import * as stylesBase from "../../config/Base";
-import DetailTransactionList from "./DetailTransactionList";
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    text: {
-        fontSize: 24,
-        color: '#101010',
-        flexDirection: 'row',
-    },
-    balance: {
-        fontSize: 18,
-        color: '#101010',
-    },
-    viewTable: {
-        flexDirection: 'column',
-        width: '100%',
-    },
-    right: {
-        flexDirection: 'row',
-    },
-    ViewInput: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-});
 
 export default class TransactionHistoryFilter extends React.Component {
     constructor(props) {
@@ -50,7 +22,7 @@ export default class TransactionHistoryFilter extends React.Component {
             description: '',
             currentTransactions: [],
             sort: 0,
-            isTrue:true,
+            isTrue: true,
         }
         this.username = 'C00000001';
         this.account = 'A00000001';
@@ -58,7 +30,7 @@ export default class TransactionHistoryFilter extends React.Component {
 
     static navigationOptions = {
         drawerIcon: ({tintColor}) => (
-            <Image style={stylesBase.IMAGE_MENU} source={config.TRANSACTION_HISTORY}/>
+            <Image style={stylesBase.IMAGE_MENU} source={config.TRANSACTION_HISTORY_ICON}/>
         ),
     };
     showDialog = () => {
@@ -84,17 +56,13 @@ export default class TransactionHistoryFilter extends React.Component {
                 dialogVisible: false,
             }
         )
-
-
-
-
     };
 
     inputOnChange = (value) => {
-        if (value.match(/^[0-9]*$/g)){
+        if (value.match(/^[0-9]*$/g)) {
             this.setState(
                 {
-                    amount:'',
+                    amount: '',
                 }
             )
         }
@@ -107,7 +75,7 @@ export default class TransactionHistoryFilter extends React.Component {
 
     checkBoxOnChange = () => {
         this.setState({
-            sort: (this.state.sort!==1)? 1:2,
+            sort: (this.state.sort !== 1) ? 1 : 2,
         })
         this.componentDidMount();
     }
@@ -124,16 +92,13 @@ export default class TransactionHistoryFilter extends React.Component {
         try {
             let transactions = await this.inputValidation()
 
-            if (transactions.data.length===0){
+            if (transactions.data.length === 0) {
                 showMessage({
-                    message: "no transactions",
-                    description: "Please search again"+transactions.data.length,
+                    message: "Transaction Not Found",
                     type: "danger",
                     icon: "danger"
                 });
             }
-
-
             this.setState({
                 currentTransactions: transactions.data
             });
@@ -144,48 +109,57 @@ export default class TransactionHistoryFilter extends React.Component {
     }
 
 
-
     inputValidation() {
         let service = new AccountService(this.username, this.account, config.BASE_URL);
         let transactions = service.getAllTransactionList(this.state.sort)
-        if(this.state.description!==''&&this.state.amount===''){
-            transactions =service.getTransactionListBasedOnDescription(this.state.description,this.state.sort)
+        if (this.state.description !== '' && this.state.amount === '') {
+            transactions = service.getTransactionListBasedOnDescription(this.state.description, this.state.sort)
         }
-        if (this.state.description===''&&this.state.amount!==''){
-            transactions = service.getTransactionListBasedOnAmount(parseFloat(this.state.amount),this.state.sort)
+        if (this.state.description === '' && this.state.amount !== '') {
+            transactions = service.getTransactionListBasedOnAmount(parseFloat(this.state.amount), this.state.sort)
         }
-        if (this.state.description!==''&& this.state.amount!==''){
-            transactions = service.getTransactionListBasedOnAmountAndDescription(parseFloat(this.state.amount),this.state.description,
+        if (this.state.description !== '' && this.state.amount !== '') {
+            transactions = service.getTransactionListBasedOnAmountAndDescription(parseFloat(this.state.amount), this.state.description,
                 this.state.sort)
         }
-
         return transactions;
     }
 
-
+    imageSort = () =>{
+        if(this.state.sort === 1){
+            return <Icon name={'ios-arrow-up'}/>
+        }
+        else{
+           return  <Icon name={'ios-arrow-down'}/>
+        }
+    }
     render() {
         return (
-            <View style={styles.container}>
+            <View style={stylesBase.CONTAINER}>
                 <AppHeader title="Transaction History" data={this.props}/>
-                <InputFilter inputOnChange={this.inputOnChange} handleSubmit={this.handleSubmit}
-                             showDialog={this.showDialog}
-                             handleCancel={this.handleCancel} dialogVisible={this.state.dialogVisible}
-                             amount={this.state.amount}
-                             descriptionOnChange={this.descriptionOnChange} checkBoxOnChange={this.checkBoxOnChange}/>
-                <DetailTransactionList currentTransactions={this.state.currentTransactions}/>
-
-                <Fab
-                    active={this.state.active}
-                    direction="up"
-                    containerStyle={{ }}
-                    style={{ backgroundColor: '#5067FF' }}
-                    position="bottomRight"
-                    onPress={() => { this.checkBoxOnChange();}}>
-                    <Image
-                        style={{width: 20, height: 20}}
-                        source={{uri: 'https://static.thenounproject.com/png/40256-200.png'}}
-                    />
-                </Fab>
+                <View style={stylesBase.LIST}>
+                    <InputFilter inputOnChange={this.inputOnChange} handleSubmit={this.handleSubmit}
+                                 showDialog={this.showDialog}
+                                 handleCancel={this.handleCancel} dialogVisible={this.state.dialogVisible}
+                                 amount={this.state.amount}
+                                 descriptionOnChange={this.descriptionOnChange}
+                                 checkBoxOnChange={this.checkBoxOnChange}/>
+                    <TransactionList currentTransactions={this.state.currentTransactions}/>
+                    <Fab
+                        active={this.state.active}
+                        direction="up"
+                        containerStyle={{}}
+                        style={{backgroundColor: '#5067FF'}}
+                        position="bottomRight"
+                        onPress={() => {
+                            this.checkBoxOnChange();
+                        }}
+                    >
+                        {
+                            this.imageSort()
+                        }
+                    </Fab>
+                </View>
             </View>
         );
     }

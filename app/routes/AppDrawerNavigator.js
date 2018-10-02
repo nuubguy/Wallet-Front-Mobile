@@ -1,28 +1,32 @@
 import {createDrawerNavigator, DrawerItems} from 'react-navigation';
 import {
-    ScrollView, SafeAreaView, View, StyleSheet, Image,
+    ScrollView, SafeAreaView, View, StyleSheet, Image, Dimensions,
 } from 'react-native';
 import React from 'react';
 
 import HomeContainer from '../HomeScreen/views/HomeContainer';
 import TopUpContainer from '../TransactionScreen/views/TopUpContainer';
 import WithdrawContainer from '../TransactionScreen/views/WithdrawContainer';
-import TransactionHistoryFilter from "../TransactionHistoryScreen/sections/TransactionHistoryFilter";
+import TransactionHistoryFilter from '../TransactionHistoryScreen/sections/TransactionHistoryFilter';
+import TransferContainer from '../TransferScreen/views/TransferContainer';
+
+const {width, height} = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#c1faff',
+        height: '100%',
     },
     menu: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#0fb9b1',
+        padding: 10,
+        height: 160,
     },
     logo: {
-        height: 100,
-        width: 100,
-        borderRadius: 60,
+        height: 110,
+        width: 110,
     },
 });
 
@@ -39,16 +43,21 @@ const CustomDrawerComponent = props => (
 
 
 const AppDrawerNavigator = createDrawerNavigator({
-  Home: HomeContainer,
-  'Top Up': TopUpContainer,
-  Withdraw: WithdrawContainer,
-  'Transaction History': TransactionHistoryFilter,
+
+    Home: HomeContainer,
+    'Top Up': TopUpContainer,
+    Withdraw: WithdrawContainer,
+    Transfer: TransferContainer,
+    'Transaction History': TransactionHistoryFilter,
+
 }, {
     contentComponent: CustomDrawerComponent,
     contentOptions: {
-        activeTintColor: '#0fb9b1',
+        activeTintColor: '#b96e68',
+        drawerWidth: Math.min(height, width) * 0.5,
+        initialRouteName: 'Home',
     },
-    initialRouteName: 'Home',
+
 });
 
 export default AppDrawerNavigator;

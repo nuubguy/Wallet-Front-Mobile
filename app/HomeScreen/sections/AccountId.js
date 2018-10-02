@@ -1,40 +1,19 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View} from 'react-native';
 import {Icon} from 'native-base';
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    text: {
-        fontSize: 24,
-        color: '#101010',
-        flexDirection: 'row',
-    },
-    balance: {
-        fontSize: 18,
-        color: '#101010',
-    },
-    row: {
-        flexDirection: 'row',
-
-    },
-    right: {
-        flexDirection: 'row',
-    },
-});
+import PropTypes from 'prop-types';
+import {HOME_SCREEN_STYLE} from '../../config/Base';
 
 const AccountId = ({data}) => {
     const {accountId} = data;
     return (
         <View>
-            <View style={styles.row}>
+            <View style={styles.HOME_SCREEN_STYLE}>
                 <Icon name="md-contacts"/>
                 {' '}
-                <Text style={styles.balance}> Hi, </Text>
-                <View style={styles.right}>
-                    <Text style={styles.text} id="accountId">
+                <Text> Hi, </Text>
+                <View style={styles.HOME_SCREEN_STYLE}>
+                    <Text style={HOME_SCREEN_STYLE.text} id="accountId">
                         {' '}
                         {accountId}
                         {' '}
@@ -47,3 +26,6 @@ const AccountId = ({data}) => {
 
 
 export default AccountId;
+AccountId.propTypes = {
+    accountId: PropTypes.string,
+};

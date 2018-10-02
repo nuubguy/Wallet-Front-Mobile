@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-  Text, View, CheckBox,
+  Text, View,
 } from 'react-native';
-import {
-  Button,
-} from 'native-base';
+import { Button } from 'react-native-elements';
 import Dialog from 'react-native-dialog';
 
 export default class InputFilter extends React.Component {
@@ -16,9 +14,11 @@ export default class InputFilter extends React.Component {
   render() {
     return (
       <View>
-        <Button full info onPress={() => { this.props.showDialog(); }}>
-          <Text>Filter</Text>
-        </Button>
+          <Button
+              title="Filter"
+              onPress={() => { this.props.showDialog(); }}
+              backgroundColor="#F4511E"
+          />
         <Dialog.Container visible={this.props.dialogVisible}>
           <Dialog.Title>Find Transaction</Dialog.Title>
           <Dialog.Input

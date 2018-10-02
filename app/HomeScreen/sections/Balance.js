@@ -1,30 +1,19 @@
 import React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {
+    Text, View, StyleSheet, Image,
+} from 'react-native';
+import PropTypes from 'prop-types';
 import * as styleBase from '../../config/Base';
 import * as config from '../../config/Constant';
+import {HOME_SCREEN_STYLE} from '../../config/Base';
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
     text: {
         fontSize: 18,
         color: '#333333',
         flexDirection: 'row',
         marginLeft: 10,
-        fontWeight: 'bold'
-    },
-    balance: {
-        fontSize: 18,
-        color: '#101010',
-    },
-    row: {
-        flexDirection: 'row',
-
-    },
-    right: {
-        flexDirection: 'row',
+        fontWeight: 'bold',
     },
 });
 
@@ -38,17 +27,15 @@ function currencyFormatter(balance) {
 const Balance = (props) => {
     const {amount, currency} = props.data;
     return (
-        <View>
-            <View style={styles.row}>
+        <View style={{alignItems: 'center', alignContent:'center'}}>
+            <View style={HOME_SCREEN_STYLE.row}>
                 <Image style={styleBase.IMAGE_ICON} source={config.BALANCE_ICON}/>
-                <View style={styles.row}>
-                    <View style={styles.right}>
+                <View style={HOME_SCREEN_STYLE.row}>
+                    <View style={HOME_SCREEN_STYLE.right}>
                         <Text style={styles.text} id="endBalance">
                             {currencyFormatter(amount)}
-                            {' '}
                         </Text>
                         <Text style={styles.text} id="currency">
-                            {' '}
                             {currency}
                         </Text>
                     </View>
@@ -60,3 +47,7 @@ const Balance = (props) => {
 
 
 export default Balance;
+Balance.propTypes = {
+    currency: PropTypes.string,
+    amount: PropTypes.string,
+};

@@ -27,12 +27,11 @@ export default class HomeContainer extends React.Component {
 
     static navigationOptions = {
         drawerIcon: ({tintColor}) => (
-            <Image style={stylesBase.IMAGE_MENU} source={config.HOME_ICON}/>
+            <View>
+                <Image style={stylesBase.IMAGE_MENU} source={config.HOME_ICON}/>
+            </View>
         ),
     };
-
-
-
 
     async componentDidMount() {
         try {
@@ -54,13 +53,11 @@ export default class HomeContainer extends React.Component {
         return (
             <View style={stylesBase.CONTAINER}>
                 <AppHeader title='Home' data={this.props}/>
-                <View style={stylesBase.BODY}>
+                <View>
                     <View style={styles.row}>
-                        <Text style={styles.hello}>
                             <Username data={this.state.username}/>
-                        </Text>
                     </View>
-                    <View style={styles.rowBalance}>
+                    <View style={styles.box}>
                         <Balance style={styles.balance} data={this.state.balance}/>
                     </View>
                 </View>
@@ -74,7 +71,6 @@ export default class HomeContainer extends React.Component {
 
 const styles = StyleSheet.create({
     hello: {
-        color: 'green',
         fontSize: 24,
     },
     row: {
@@ -92,10 +88,27 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         backgroundColor: 'white'
     },
-    balance: {
-        flex: 1,
-    },
     transaction: {
-        flex: 5,
+        borderWidth: 2,
+        borderRadius: 2,
+        borderColor: '#ddd',
+        shadowColor: '#000',
+        backgroundColor: '#fff',
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 10,
+        padding: 5,
+        height: '70%'
+    },
+    box: {
+        borderWidth: 2,
+        borderRadius: 2,
+        borderColor: '#ddd',
+        shadowColor: '#000',
+        backgroundColor: '#fff',
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 10,
+        padding: 20,
     },
 });

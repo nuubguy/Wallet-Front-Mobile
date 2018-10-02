@@ -1,35 +1,41 @@
 /* global describe it expect */
 import React from 'react';
 import {shallow} from 'enzyme';
-import TransactionContainer from './TransactionContainer';
+import TransferContainer from './TransferContainer';
 import AccountService from "../../HomeScreen/views/AccountService";
 
 jest.mock('../../HomeScreen/views/AccountService');
 
 
-describe('TransactionContainer', () => {
+describe('TransferContainer', () => {
     function renderedComponent() {
-        return shallow(<TransactionContainer/>);
+        return shallow(<TransferContainer/>);
     }
 
     describe('render', () => {
-        it('should be render Transaction Form', () => {
-            expect(renderedComponent().find('SearchRecipientForm')).toBeDefined();
+        it('should be render Transfer Form', () => {
+            expect(renderedComponent().find('TransferForm')).toBeDefined();
         });
     });
 
-
     describe('onChange', () => {
-        it('should change the state of amount when there is change in input amount', () => {
+        it('should change the state of account when there is change input account', () => {
+            const account = 'A00000001';
+            const wrapper = shallow(<TransferContainer/>);
+            wrapper.instance().handleChangeAccount(account);
+            expect(wrapper.state().account).toBe(account);
+        });
+
+        it('should change the state of amount when there is change input amount', () => {
             const amount = '10000';
-            const wrapper = shallow(<TransactionContainer/>);
+            const wrapper = shallow(<TransferContainer/>);
             wrapper.instance().handleChangeAmount(amount);
             expect(wrapper.state().amount).toBe(amount);
         });
 
-        it('should change the state of description when there is change in input description', () => {
+        it('should change the state of description when there is change input description', () => {
             const description = 'Buy Pizza';
-            const wrapper = shallow(<TransactionContainer/>);
+            const wrapper = shallow(<TransferContainer/>);
             wrapper.instance().handleChangeDescription(description);
             expect(wrapper.state().description).toBe(description);
         });
@@ -48,7 +54,7 @@ describe('TransactionContainer', () => {
                     postTransaction: mockPostTransaction
                 }
             });
-            const wrapper = shallow(<TransactionContainer/>);
+            const wrapper = shallow(<TransferContainer/>);
             wrapper.instance().handleSubmit();
             await Promise.resolve();
             expect(mockPostTransaction).toHaveBeenCalled();

@@ -1,26 +1,34 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Image} from 'react-native';
-import TransactionForm from "../sections/TransactionForm";
+import TransferForm from "../sections/TransferForm";
 import * as stylesBase from "../../config/Base";
 import * as config from "../../config/Constant";
 import AccountService from "../../HomeScreen/views/AccountService";
 import {showMessage} from "react-native-flash-message";
 import Balance from "../../HomeScreen/sections/Balance";
 import PropTypes from "prop-types";
+import AppHeader from "../../routes/AppHeader";
+import SearchRecipientForm from "../sections/SearchRecipientForm";
 
 //represent amount needed to restore something to its former level
-export default class TransactionContainer extends Component {
+export default class TransferContainer extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             amount: '',
             description: '',
+            recipientAccountId: '',
+            recipientAccountName: '',
             btnConfirmDisabled: true,
+            btnCheckDisabled: true,
             balance: {
                 amount: '',
-                currency: ''
+                currency: '',
+
             },
+            payees: [],
+            isEditable: false,
             transactionType: config.CREDIT
 
         }
@@ -34,7 +42,7 @@ export default class TransactionContainer extends Component {
 
     static navigationOptions = {
         drawerIcon: ({tintColor}) => (
-            <Image style={stylesBase.IMAGE_MENU} source={config.TOP_UP_ICON}/>
+            <Image style={stylesBase.IMAGE_MENU} source={config.TRANSFER_ICON}/>
         ),
     };
 
@@ -42,17 +50,26 @@ export default class TransactionContainer extends Component {
         return (
             <View>
                 <View style={styles.container}>
+                    <AppHeader title='Transfer' data={this.props}/>
                     <View style={styles.box}>
                         <Balance data={this.state.balance}/>
                     </View>
                     <View style={styles.box}>
-                        <TransactionForm
+                        <SearchRecipientForm
+                            valid={this.state.btnCheckDisabled}
+                            account={this.state.account}
+                            onChangeAccount={this.handleChangeAccount}
+                            onPressCheck={this.handleClickCheck}
+                        />
+                        <TransferForm
+                            recipientAccountName={this.state.recipientAccountName}
                             amount={this.state.amount}
                             onChangeAmount={this.handleChangeAmount}
                             description={this.state.description}
                             onChangeDescription={this.handleChangeDescription}
                             onPressSubmit={this.handleSubmit}
                             valid={this.state.btnConfirmDisabled}
+                            isEditable={this.state.isEditable}
                         />
                     </View>
                 </View>
@@ -60,10 +77,39 @@ export default class TransactionContainer extends Component {
         );
     }
 
-    isValidAmount = (Amount) => {
-
-        return Amount.replace('.', '') > config.MINIMUM_TRX;
+    isValidAmount(Amount) {
+        if (Amount.replace('.', '') >= config.MINIMUM_TRX) {
+            return true;
+        }
+        return false;
     }
+
+    handleClickCheck = () => {
+
+        let inputAccountId = this.state.recipientAccountId;
+        for (let i = 0; i < this.state.payees.length; i++) {
+            if(this.state.payees[i].accountId === inputAccountId){
+                this.setState({
+                    isEditable: true,
+                    recipientAccountName: this.state.payees[i].customer.name
+                });
+                return;
+            }
+            showMessage({
+                message: "Account not found",
+                type: "danger",
+                icon: "danger"
+            });
+        }
+    };
+
+    handleChangeAccount = (recipientAccount) => {
+        this.setState({
+            recipientAccountId: recipientAccount,
+            recipientAccountName: '',
+            isEditable: false,
+        });
+    };
 
     handleChangeAmount = (amount) => {
         let inAmount = amount.replace(/[^0-9]/g, '');
@@ -72,7 +118,6 @@ export default class TransactionContainer extends Component {
             this.setState({btnConfirmDisabled: false})
         }
         this.setState({amount: inAmount});
-
     };
 
     handleChangeDescription = (description) => {
@@ -85,8 +130,9 @@ export default class TransactionContainer extends Component {
             this.setState({
                 balance: {
                     amount: response.data.balance.amount,
-                    currency: response.data.balance.currency
-                }
+                    currency: response.data.balance.currency,
+                },
+                payees: response.data.payees
             })
         }
         catch (error) {
@@ -96,20 +142,19 @@ export default class TransactionContainer extends Component {
                 type: "danger",
                 icon: "danger"
             });
+            console.log(error)
         }
 
     }
 
     handleSubmit = () => {
-
         let jsonRequest = {
-            transactionType: this.transactionType,
             amount: this.state.amount.replace('.', ''),
             description: this.state.description,
-            balance: this.state.balance
+            accountId: this.state.recipientAccountId
         }
 
-        this.service.postTransaction(jsonRequest)
+        this.service.postTransfer(jsonRequest)
             .then(() => {
                 showMessage(Object.assign({
                     message: "Transaction successful",
@@ -126,11 +171,11 @@ export default class TransactionContainer extends Component {
                     type: "danger",
                     icon: "danger"
                 });
-                console.log('error ' + JSON.stringify(error));
+
             });
     };
 }
-TransactionContainer.propTypes = {
+TransferContainer.propTypes = {
     navigation: PropTypes.object,
     route: PropTypes.string
 }
