@@ -36,13 +36,13 @@ export default class HomeContainer extends React.Component {
 
     async componentDidMount() {
         try {
-            let account = new AccountService(this.username, this.account, config.BASE_URL);
-            let result = await account.getAccount();
-            let trxResponse = await account.getTransactionList();
+            let service = new AccountService(this.username, this.account, config.BASE_URL);
+            let transactions = await service.getLatestTransaction()
+            let result = await service.getAccount();
             this.setState({
                 username: result.data.customer.name,
                 balance: result.data.balance,
-                transactions: trxResponse.data
+                transactions: transactions.data
             });
         }
         catch (e) {

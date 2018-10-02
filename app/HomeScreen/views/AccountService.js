@@ -27,21 +27,22 @@ export default class AccountService{
         return axios.get(url);
     }
 
+
     getTransactionList() {
         let accountId = this.accountId;
         let baseUrl = this.baseUrl;
-        let transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&limitResultFromLatest=5`;
-        return axios.get(transactionListUrl).then((response) =>{
+        let transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&limitResultFromLatest=5&description=&amount=&status=`;
+        return axios.get(transactionListUrl).then((response) => {
             return {
                 status: response.status,
-                data: response.data.map((item) =>{
+                data: response.data.map((item) => {
                     function getTransactionType(item) {
-                        if(item.credit === accountId || item.credit.accountId === accountId){
-                            return Constant.CREDIT;
+                        if (item.credit === accountId || item.credit.accountId === accountId) {
+                            return Constant.credit();
                         }
 
-                        if(item.debit === accountId || item.debit.accountId === accountId){
-                            return Constant.DEBIT;
+                        if (item.debit === accountId || item.debit.accountId === accountId) {
+                            return Constant.debit();
                         }
                     }
 
@@ -59,10 +60,13 @@ export default class AccountService{
     }
 
 
-    getAllTransactionList() {
+    getAllTransactionList(sort) {
         const accountId = this.accountId;
         const baseUrl = this.baseUrl;
-        const transactionListUrl = `${baseUrl}/transactions/?accountId=A00000001&limitResultFromLatest=&description=&amount=&status=`;
+        let transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&limitResultFromLatest=&description=&amount=&status=${sort}`;
+        if (sort===0){
+            transactionListUrl= `${baseUrl}/transactions/?accountId=${accountId}&limitResultFromLatest=&description=&amount=&status=`;
+        }
         return axios.get(transactionListUrl).then(response => ({
             status: response.status,
             data: response.data.map((item) => {
@@ -88,11 +92,10 @@ export default class AccountService{
         }));
     }
 
-    getTransactionListBasedOnDescription(description) {
+    getLatestTransaction() {
         const accountId = this.accountId;
         const baseUrl = this.baseUrl;
-        const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&
-    limitResultFromLatest=&description=${description}&amount=`;
+        const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&limitResultFromLatest=5&description=&amount=&status=`;
         return axios.get(transactionListUrl).then(response => ({
             status: response.status,
             data: response.data.map((item) => {
@@ -118,11 +121,42 @@ export default class AccountService{
         }));
     }
 
-    getTransactionListBasedOnAmount(amount) {
+
+    getTransactionListBasedOnDescription(description,sort) {
         const accountId = this.accountId;
         const baseUrl = this.baseUrl;
         const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&
-    limitResultFromLatest=&description=&amount=${parseFloat(amount)}`;
+    limitResultFromLatest=&description=${description}&amount=&status=${sort}`;
+        return axios.get(transactionListUrl).then(response => ({
+            status: response.status,
+            data: response.data.map((item) => {
+                function getTransactionType(item) {
+                    if (item.credit === accountId || item.credit.accountId === accountId) {
+                        return 'credit';
+                    }
+
+                    if (item.debit === accountId || item.debit.accountId === accountId) {
+                        return 'debit';
+                    }
+                }
+
+                return {
+                    transactionId: item.transactionId,
+                    transactionType: getTransactionType(item),
+                    dateTime: item.dateTime,
+                    amount: item.transactionAmount.amount,
+                    currency: item.transactionAmount.currency,
+                    description: item.description,
+                };
+            }),
+        }));
+    }
+
+    getTransactionListBasedOnAmount(amount,sort) {
+        const accountId = this.accountId;
+        const baseUrl = this.baseUrl;
+        const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&
+    limitResultFromLatest=&description=&amount=${parseFloat(amount)}&status=${sort}`;
         return axios.get(transactionListUrl).then(response => ({
             status: response.status,
             data: response.data.map((item) => {
@@ -207,6 +241,7 @@ export default class AccountService{
             }),
         }));
     }
+
 
 
     postTransaction(transaction){
