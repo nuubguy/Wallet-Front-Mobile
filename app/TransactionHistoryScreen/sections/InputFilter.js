@@ -10,7 +10,6 @@ export default class InputFilter extends React.Component {
     super(props);
   }
 
-
   render() {
     return (
       <View>
@@ -22,11 +21,11 @@ export default class InputFilter extends React.Component {
         <Dialog.Container visible={this.props.dialogVisible}>
           <Dialog.Title>Find Transaction</Dialog.Title>
           <Dialog.Input
-            placeholder="Enter Amount"
+            placeholder="Amount"
             onChangeText={(e) => { this.props.inputOnChange(e); }}
           />
           <Dialog.Input
-            placeholder="Enter Description"
+            placeholder="Description"
             onChangeText={(e) => { this.props.descriptionOnChange(e); }}
           />
           <Dialog.Button label="Cancel" onPress={this.props.handleCancel} />

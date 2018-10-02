@@ -6,7 +6,6 @@ import React from 'react';
 
 import HomeContainer from '../HomeScreen/views/HomeContainer';
 import TopUpContainer from '../TransactionScreen/views/TopUpContainer';
-import WithdrawContainer from '../TransactionScreen/views/WithdrawContainer';
 import TransactionHistoryFilter from '../TransactionHistoryScreen/sections/TransactionHistoryFilter';
 import TransferContainer from '../TransferScreen/views/TransferContainer';
 
@@ -46,7 +45,6 @@ const AppDrawerNavigator = createDrawerNavigator({
 
     Home: HomeContainer,
     'Top Up': TopUpContainer,
-    Withdraw: WithdrawContainer,
     Transfer: TransferContainer,
     'Transaction History': TransactionHistoryFilter,
 

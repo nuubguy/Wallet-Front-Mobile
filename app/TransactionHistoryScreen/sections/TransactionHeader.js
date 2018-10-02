@@ -1,5 +1,4 @@
-import {
-  Body, Container, Content, Icon, Left, List, ListItem, Right, Text,
+import {Container, Content, Icon, Right, Text,
 } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
@@ -41,6 +40,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     flexDirection: 'row',
     backgroundColor: '#0fb9b1',
+      alignItems: 'center'
   },
   balance: {
     flex: 1,
