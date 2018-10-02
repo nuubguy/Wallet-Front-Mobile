@@ -36,11 +36,11 @@ export default class AccountService {
       data: response.data.map((item) => {
         function getTransactionType(item) {
           if (item.credit === accountId || item.credit.accountId === accountId) {
-            return Constant.credit();
+            return Constant.CREDIT;
           }
 
           if (item.debit === accountId || item.debit.accountId === accountId) {
-            return Constant.debit();
+            return Constant.DEBIT;
           }
         }
 

@@ -9,9 +9,10 @@ const TransactionHeader = props => (
   <Container>
     <Content>
       <View style={styles.row}>
-        <Text style={{ color: 'white', fontSize: 18 }}>Recent Transactions</Text>
+        <Text id="LabelTransaction" style={{ color: 'white', fontSize: 18 }}>Recent Transactions</Text>
         <Right>
           <Icon
+              id="naviagateIcon"
             name="ios-arrow-forward"
             onPress={() => {
               props.navigate.navigate('Transaction History', { transactions: props.data });

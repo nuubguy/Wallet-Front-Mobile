@@ -16,9 +16,15 @@ describe('TransactionHeader', () => {
         transactionId: 'T00000007',
         transactionType: 'credit',
     }];
-    it('should show two transaction in list and first one with key T00000006 ', () => {
+    it('should show LabelTransaction', () => {
         const wrapper = shallow(<TransactionHeader data={transactions}/>);
-        expect(wrapper.find('#transactionsId').props().children.length).toBe(2);
-        expect(wrapper.find('#transactionsId').props().children[0].key).toBe('T00000006');
+        expect(wrapper.find('#LabelTransaction').length).toBe(1);
     });
+
+    it('should show icon in AppHeader ', () => {
+        const wrapper = shallow(<TransactionHeader data={transactions}/>);
+        expect(wrapper.find('#naviagateIcon').length).toBe(1);
+    });
+
+
 });

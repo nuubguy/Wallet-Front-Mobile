@@ -37,7 +37,7 @@ describe('accountService', () => {
 
             const testAccount = TestAccount();
 
-            const result = await testAccount.getCustomerInfo();
+            const result = await testAccount.getAccount();
 
             expect(result.status).toBe(200);
             expect(result.data.customerId).toBe('C00000001');
@@ -143,7 +143,6 @@ describe('accountService', () => {
 
             const testAccount = TestAccount();
             await testAccount.getAccount();
-            await testAccount.getCustomerInfo();
             const result = await testAccount.postTransaction({transactionType: 'credit', amount: 1000000});
 
             expect(result.data.transactionId).toBe('T00000006');
@@ -182,17 +181,15 @@ describe('accountService', () => {
 
             const testAccount = TestAccount();
             await testAccount.getAccount();
-            await testAccount.getCustomerInfo();
             let result;
             try {
                 result = await testAccount.postTransaction({transactionType: 'credit', amount: 1000000});
             } catch (e) {
-                result = e.response.data;
+                result = e;
             }
 
-
             expect(result.status).toBe(403);
-            expect(result.message).toBe('Insufficient balance');
+            expect(result.data).toBe('Insufficient balance');
         });
     });
 });
