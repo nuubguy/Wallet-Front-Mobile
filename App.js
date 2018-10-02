@@ -8,7 +8,7 @@ export default class App extends React.Component {
         return (
             <View style={styles.container}>
                 <AppDrawerNavigator/>
-                <FlashMessage position="top" />
+                <FlashMessage position="top" duration={3000} />
             </View>
         );
     }
