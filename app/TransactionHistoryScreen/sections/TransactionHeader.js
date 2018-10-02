@@ -1,12 +1,9 @@
-// trxhist list
 import {
     Body, Container, Content, Icon, Left, List, ListItem, Right, Text,
 } from 'native-base';
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import TransactionList from "./TransactionList";
-
-
 
 const TransactionHeader = props => (
     <Container>
