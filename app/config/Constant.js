@@ -18,6 +18,7 @@ const config = {
     CREDIT: 'credit',
     IMAGE_DEBIT: require('../resources/images/debit.png'),
     IMAGE_CREDIT: require('../resources/images/credit.png'),
+    LOGOUT_IMAGE: require('../resources/images/logout-icon.png'),
 };
 
 module.exports = config;
