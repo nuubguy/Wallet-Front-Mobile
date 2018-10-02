@@ -8,7 +8,7 @@ const style = {
         height: 25
     },
     CONTAINER:{
-        backgroundColor: '#f5f5f5'
+        backgroundColor: '#CFD8DC'
     },
     BODY: {
         alignItems: 'center',
@@ -20,6 +20,37 @@ const style = {
     BTN_SUCCESS:{
         backgroundColor: '#33ad41',
         color: '#fff'
+    },
+    HOME_SCREEN_STYLE : {
+        container: {
+            flexDirection: 'column',
+            justifyContent: 'center',
+        },
+        text: {
+            fontSize: 24,
+            color: '#333333',
+            flexDirection: 'row',
+            fontWeight: 'bold'
+        },
+        balance: {
+            fontSize: 18,
+            color: '#101010',
+        },
+        row: {
+            flexDirection: 'row',
+
+        },
+        right: {
+            flexDirection: 'row',
+        },
+    },
+    MESSAGE_SUCCESS: {
+        backgroundColor: "#76daff",
+        color: '#000'
+    },
+    MESSAGE_FAIL: {
+        backgroundColor: "#ff6e47",
+        color: '#000'
     }
 };
 
