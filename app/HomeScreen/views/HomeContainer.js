@@ -35,13 +35,13 @@ export default class HomeContainer extends React.Component {
 
     async componentDidMount() {
         try {
-            let account = new AccountService(this.username, this.account, config.BASE_URL);
-            let result = await account.getAccount();
-            let trxResponse = await account.getTransactionList();
+            let service = new AccountService(this.username, this.account, config.BASE_URL);
+            let transactions = await service.getLatestTransaction()
+            let result = await service.getAccount();
             this.setState({
                 username: result.data.customer.name,
                 balance: result.data.balance,
-                transactions: trxResponse.data
+                transactions: transactions.data
             });
         }
         catch (e) {
@@ -55,9 +55,7 @@ export default class HomeContainer extends React.Component {
                 <AppHeader title='Home' data={this.props}/>
                 <View>
                     <View style={styles.row}>
-                        <Text style={styles.hello}>
                             <Username data={this.state.username}/>
-                        </Text>
                     </View>
                     <View style={styles.box}>
                         <Balance style={styles.balance} data={this.state.balance}/>
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginTop: 10,
         padding: 5,
-        height: '100%'
+        height: '70%'
     },
     box: {
         borderWidth: 2,
