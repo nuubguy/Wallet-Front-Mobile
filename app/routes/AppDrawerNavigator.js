@@ -1,13 +1,17 @@
-import {createDrawerNavigator, DrawerItems} from 'react-navigation';
 import {
-    ScrollView, SafeAreaView, View, StyleSheet, Image, Dimensions,
+    createDrawerNavigator, DrawerItems, createSwitchNavigator, createStackNavigator,
+} from 'react-navigation';
+import {
+    ScrollView, SafeAreaView, View, StyleSheet, Image, Text, TouchableOpacity, AsyncStorage, Dimensions
 } from 'react-native';
 import React from 'react';
-
+import * as config from '../config/Constant';
 import HomeContainer from '../HomeScreen/views/HomeContainer';
-import TopUpContainer from '../TransactionScreen/views/TopUpContainer';
-import TransactionHistoryFilter from '../TransactionHistoryScreen/sections/TransactionHistoryFilter';
-import TransferContainer from '../TransferScreen/views/TransferContainer';
+import LoginContainer from '../LoginScreen/views/LoginContainer';
+import LoginLoading from '../LoginScreen/views/LoginLoading';
+import TopUpContainer from "../TransactionScreen/views/TopUpContainer";
+import TransferContainer from "../TransferScreen/views/TransferContainer";
+import TransactionHistoryFilter from "../TransactionHistoryScreen/sections/TransactionHistoryFilter";
 
 const {width, height} = Dimensions.get('screen');
 
@@ -29,33 +33,49 @@ const styles = StyleSheet.create({
     },
 });
 
+const signOutAsync = async (props) => {
+    await AsyncStorage.clear();
+    props.navigation.navigate('Auth');
+};
+
+
 const CustomDrawerComponent = props => (
     <SafeAreaView style={styles.container}>
         <ScrollView>
             <View style={styles.menu}>
-                <Image style={styles.logo} source={require('../resources/images/zoomba-logo.png')}/>
+                <Image style={styles.logo} source={config.LOGO_IMAGE} />
             </View>
             <DrawerItems {...props} />
+            <View style={styles.menuLogout}>
+                <TouchableOpacity style={{ flexDirection: 'row', paddingLeft: 10 }} onPress={() => signOutAsync(props)}>
+                    <Image style={{ width: 30, height: 30 }} source={config.LOGOUT_IMAGE} />
+                    <Text style={{ paddingLeft: 30, alignItems: 'center' }}>Logout</Text>
+                </TouchableOpacity>
+            </View>
         </ScrollView>
     </SafeAreaView>
 );
 
 
-const AppDrawerNavigator = createDrawerNavigator({
-
+const AuthStack = createStackNavigator({ Login: LoginContainer });
+const AppStack = createDrawerNavigator({
     Home: HomeContainer,
     'Top Up': TopUpContainer,
     Transfer: TransferContainer,
     'Transaction History': TransactionHistoryFilter,
-
 }, {
     contentComponent: CustomDrawerComponent,
     contentOptions: {
-        activeTintColor: '#b96e68',
-        drawerWidth: Math.min(height, width) * 0.5,
-        initialRouteName: 'Home',
+        activeTintColor: '#0fb9b1',
     },
+});
 
+const AppDrawerNavigator = createSwitchNavigator({
+    LoginLoading,
+    App: AppStack,
+    Auth: AuthStack,
+}, {
+    initialRouteName: 'LoginLoading',
 });
 
 export default AppDrawerNavigator;
