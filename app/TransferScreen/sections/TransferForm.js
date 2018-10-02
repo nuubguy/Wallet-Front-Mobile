@@ -9,26 +9,28 @@ const TransactionForm = (props) => (
     <View>
         <View style={stylesBase.ROW}>
             <FormInput
-                id="account"
-                value={props.account}
-                placeholder={'Recipient Account'}
-                onChangeText={props.onChangeAccount}/>
-
+                id="accountName"
+                value={props.recipientAccountName}
+                placeholder={'Recipient Name'}
+                editable={false}
+            />
         </View>
         <View style={stylesBase.ROW}>
             <FormInput
                 id="amount"
                 value={props.amount}
                 keyboardType='numeric'
-                placeholder={'Amount of Money'}
-                onChangeText={props.onChangeAmount}/>
+                placeholder={'Amount (Min. 15.001)'}
+                onChangeText={props.onChangeAmount}
+            />
         </View>
         <View style={stylesBase.ROW}>
             <FormInput
                 id="description"
                 value={props.description}
-                placeholder={'Description (optional)'}
-                onChangeText={props.onChangeDescription}/>
+                placeholder={'Description (Max. 15 characters)'}
+                onChangeText={props.onChangeDescription}
+            />
         </View>
         <View style={stylesBase.ROW}>
             <Button backgroundColor={'#33ad41'}
@@ -43,11 +45,10 @@ const TransactionForm = (props) => (
 
 export default TransactionForm;
 TransactionForm.propTypes = {
-    account: PropTypes.string,
     amount: PropTypes.string,
     description: PropTypes.string,
-    onChangeAccount: PropTypes.func,
     onChangeAmount: PropTypes.func,
     onChangeDescription: PropTypes.func,
     onPressSubmit: PropTypes.func,
+    valid: PropTypes.bool
 };
