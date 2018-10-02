@@ -125,6 +125,14 @@ export default class TransactionHistoryFilter extends React.Component {
         return transactions;
     }
 
+    imageSort = () =>{
+        if(this.state.sort === 1){
+            return <Icon name={'ios-arrow-up'}/>
+        }
+        else{
+           return  <Icon name={'ios-arrow-down'}/>
+        }
+    }
     render() {
         return (
             <View style={stylesBase.CONTAINER}>
@@ -147,7 +155,9 @@ export default class TransactionHistoryFilter extends React.Component {
                             this.checkBoxOnChange();
                         }}
                     >
-                        <Icon name={'ios-color-filter-outline'}/>
+                        {
+                            this.imageSort()
+                        }
                     </Fab>
                 </View>
             </View>
