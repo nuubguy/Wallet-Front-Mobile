@@ -12,18 +12,20 @@ const TransactionForm = (props) => (
                 id="amount"
                 value={props.amount}
                 keyboardType='numeric'
-                placeholder={'Amount (Min 15000)'}
+                placeholder={'Amount (Min. 15.001)'}
+                containerStyle={{width: '90%'}}
                 onChangeText={props.onChangeAmount}/>
         </View>
         <View style={stylesBase.ROW}>
             <FormInput
                 id="description"
                 value={props.description}
-                placeholder={'Description (Max 15 characters)'}
+                placeholder={'Description (Max. 15 characters)'}
+                containerStyle={{width: '90%'}}
                 onChangeText={props.onChangeDescription}/>
         </View>
         <View style={stylesBase.ROW}>
-            <Button backgroundColor={'#33ad41'}
+            <Button backgroundColor={'#F4511E'}
                     id="btnConfirm"
                     title='Confirm'
                     onPress={props.onPressSubmit}

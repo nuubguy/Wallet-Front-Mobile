@@ -77,9 +77,9 @@ export default class TransactionContainer extends Component {
     handleChangeAmount = (amount) => {
         let inAmount = amount.replace(/[^0-9]/g, '');
         // let finalAmount = this.currencyFormatter(inAmount);
-        this.setState({isDisabled: true})
+        this.setState({btnConfirmDisabled: true})
         if (this.isValidAmount(inAmount)) {
-            this.setState({isDisabled: false})
+            this.setState({btnConfirmDisabled: false})
         }
         this.setState({amount: inAmount});
     };
@@ -120,12 +120,12 @@ export default class TransactionContainer extends Component {
 
         this.service.postTransaction(jsonRequest)
             .then(() => {
-                showMessage({
+                showMessage(Object.assign({
                     message: "Transaction successful",
                     description: "Please check your balance",
                     type: "success",
-                    icon: "success"
-                });
+                    icon: "success",
+                },stylesBase.MESSAGE_SUCCESS));
                 this.props.navigation.navigate('Home')
             })
             .catch((error) => {
