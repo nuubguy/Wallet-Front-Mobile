@@ -11,8 +11,8 @@ export default class LoginContainer extends React.Component {
             email: '',
             password: ''
         }
-        this._bootstrapAsync();
     }
+    static navigationOptions = { header: null };
 
     render() {
         return (
@@ -65,10 +65,6 @@ export default class LoginContainer extends React.Component {
     _signInAsync = async () => {
         await AsyncStorage.setItem('userToken', 'abc');
         this.props.navigation.navigate('Home');
-    };
-    _bootstrapAsync = async () => {
-        const userToken = await AsyncStorage.getItem('userToken');
-        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
     };
 }
 
