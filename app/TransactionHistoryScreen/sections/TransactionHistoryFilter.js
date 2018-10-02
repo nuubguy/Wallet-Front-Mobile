@@ -1,43 +1,17 @@
 import React from 'react';
 import {
-    View, StyleSheet, Image
+    View, StyleSheet, Image,
 } from 'react-native';
 import AppHeader from '../../routes/AppHeader';
 import InputFilter from "./InputFilter";
 import AccountService from "../../HomeScreen/views/AccountService";
 import * as config from "../../config/Constant";
+import {showMessage} from "react-native-flash-message";
 import TransactionList from "./TransactionList";
 import {
-    Fab
+    Fab, Icon
 } from 'native-base';
 import * as stylesBase from "../../config/Base";
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    text: {
-        fontSize: 24,
-        color: '#101010',
-        flexDirection: 'row',
-    },
-    balance: {
-        fontSize: 18,
-        color: '#101010',
-    },
-    viewTable: {
-        flexDirection: 'column',
-        width: '100%',
-    },
-    right: {
-        flexDirection: 'row',
-    },
-    ViewInput: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-});
 
 export default class TransactionHistoryFilter extends React.Component {
     constructor(props) {
@@ -47,7 +21,8 @@ export default class TransactionHistoryFilter extends React.Component {
             amount: '',
             description: '',
             currentTransactions: [],
-            sort: false
+            sort: 0,
+            isTrue: true,
         }
         this.username = 'C00000001';
         this.account = 'A00000001';
@@ -55,7 +30,7 @@ export default class TransactionHistoryFilter extends React.Component {
 
     static navigationOptions = {
         drawerIcon: ({tintColor}) => (
-            <Image style={stylesBase.IMAGE_MENU} source={config.TRANSACTION_HISTORY}/>
+            <Image style={stylesBase.IMAGE_MENU} source={config.TRANSACTION_HISTORY_ICON}/>
         ),
     };
     showDialog = () => {
@@ -84,6 +59,14 @@ export default class TransactionHistoryFilter extends React.Component {
     };
 
     inputOnChange = (value) => {
+        if (value.match(/^[0-9]*$/g)) {
+            this.setState(
+                {
+                    amount: '',
+                }
+            )
+        }
+
         this.setState({
                 amount: value
             }
@@ -91,11 +74,9 @@ export default class TransactionHistoryFilter extends React.Component {
     }
 
     checkBoxOnChange = () => {
-        this.setState(
-            {
-                sort: (this.state.sort === false) ? true : false
-            }
-        )
+        this.setState({
+            sort: (this.state.sort !== 1) ? 1 : 2,
+        })
         this.componentDidMount();
     }
 
@@ -110,9 +91,16 @@ export default class TransactionHistoryFilter extends React.Component {
 
         try {
             let transactions = await this.inputValidation()
-            let sortedTransactions = this.sort(transactions.data)
+
+            if (transactions.data.length === 0) {
+                showMessage({
+                    message: "Transaction Not Found",
+                    type: "danger",
+                    icon: "danger"
+                });
+            }
             this.setState({
-                currentTransactions: sortedTransactions
+                currentTransactions: transactions.data
             });
         }
         catch (e) {
@@ -121,41 +109,47 @@ export default class TransactionHistoryFilter extends React.Component {
     }
 
 
-    sort = (transaction) => {
-        return transaction.sort((a, b) => {
-            return (this.state.sort === false) ? a.amount - b.amount : b.amount - a.amount
-        })
-    }
-
     inputValidation() {
-        let account = new AccountService(this.username, this.account, config.BASE_URL);
-        let trxResponse = account.getAllTransactionList();
+        let service = new AccountService(this.username, this.account, config.BASE_URL);
+        let transactions = service.getAllTransactionList(this.state.sort)
         if (this.state.description !== '' && this.state.amount === '') {
-            trxResponse = account.getTransactionListBasedOnDescription(this.state.description.toLowerCase());
+            transactions = service.getTransactionListBasedOnDescription(this.state.description, this.state.sort)
         }
         if (this.state.description === '' && this.state.amount !== '') {
-            trxResponse = account.getTransactionListBasedOnAmount(this.state.amount);
+            transactions = service.getTransactionListBasedOnAmount(parseFloat(this.state.amount), this.state.sort)
         }
         if (this.state.description !== '' && this.state.amount !== '') {
-            trxResponse = account.getTransactionListBasedOnAmountAndDescription(this.state.amount,
-                this.state.description.toLowerCase());
+            transactions = service.getTransactionListBasedOnAmountAndDescription(parseFloat(this.state.amount), this.state.description,
+                this.state.sort)
         }
-
-        return trxResponse;
+        return transactions;
     }
-
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={stylesBase.CONTAINER}>
                 <AppHeader title="Transaction History" data={this.props}/>
-                <InputFilter inputOnChange={this.inputOnChange} handleSubmit={this.handleSubmit}
-                             showDialog={this.showDialog}
-                             handleCancel={this.handleCancel} dialogVisible={this.state.dialogVisible}
-                             amount={this.state.amount}
-                             descriptionOnChange={this.descriptionOnChange} checkBoxOnChange={this.checkBoxOnChange}/>
-                <TransactionList currentTransactions={this.state.currentTransactions}/>
-
+                <View style={stylesBase.LIST}>
+                    <InputFilter inputOnChange={this.inputOnChange} handleSubmit={this.handleSubmit}
+                                 showDialog={this.showDialog}
+                                 handleCancel={this.handleCancel} dialogVisible={this.state.dialogVisible}
+                                 amount={this.state.amount}
+                                 descriptionOnChange={this.descriptionOnChange}
+                                 checkBoxOnChange={this.checkBoxOnChange}/>
+                    <TransactionList currentTransactions={this.state.currentTransactions}/>
+                    <Fab
+                        active={this.state.active}
+                        direction="up"
+                        containerStyle={{}}
+                        style={{backgroundColor: '#5067FF'}}
+                        position="bottomRight"
+                        onPress={() => {
+                            this.checkBoxOnChange();
+                        }}
+                    >
+                        <Icon name={'ios-color-filter-outline'}/>
+                    </Fab>
+                </View>
             </View>
         );
     }
