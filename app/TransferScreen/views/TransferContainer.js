@@ -8,6 +8,7 @@ import {showMessage} from "react-native-flash-message";
 import Balance from "../../HomeScreen/sections/Balance";
 import PropTypes from "prop-types";
 import AppHeader from "../../routes/AppHeader";
+import SearchRecipientForm from "../sections/SearchRecipientForm";
 
 //represent amount needed to restore something to its former level
 export default class TransferContainer extends Component {
@@ -17,12 +18,15 @@ export default class TransferContainer extends Component {
         this.state = {
             amount: '',
             description: '',
-            account: '',
-            isDisabled: true,
+            recipientAccountId: '',
+            recipientAccountName: '',
+            btnConfirmDisabled: true,
+            btnCheckDisabled: true,
             balance: {
                 amount: '',
                 currency: ''
             },
+            isFoundRecipient: false,
             transactionType: config.CREDIT
 
         }
@@ -40,26 +44,40 @@ export default class TransferContainer extends Component {
         ),
     };
 
+    renderTransferForm = () => {
+        if (this.state.isFoundRecipient) {
+            return (
+                <TransferForm
+                    recipientAccountName={this.state.recipientAccountName}
+                    amount={this.state.amount}
+                    onChangeAmount={this.handleChangeAmount}
+                    description={this.state.description}
+                    onChangeDescription={this.handleChangeDescription}
+                    onPressSubmit={this.handleSubmit}
+                    valid={this.state.btnConfirmDisabled}
+                    isFoundRecipient={this.state.isFoundRecipient}
+                />
+            )
+        }
+        return null;
+    }
+
     render() {
         return (
             <View>
-
                 <View style={styles.container}>
                     <AppHeader title='Transfer' data={this.props}/>
                     <View style={styles.box}>
                         <Balance data={this.state.balance}/>
                     </View>
                     <View style={styles.box}>
-                        <TransferForm
+                        <SearchRecipientForm
+                            valid={this.state.btnCheckDisabled}
                             account={this.state.account}
                             onChangeAccount={this.handleChangeAccount}
-                            amount={this.state.amount}
-                            onChangeAmount={this.handleChangeAmount}
-                            description={this.state.description}
-                            onChangeDescription={this.handleChangeDescription}
-                            onPressSubmit={this.handleSubmit}
-                            valid={this.state.isDisabled}
+                            onPressCheck={this.handleClickCheck}
                         />
+                        { this.renderTransferForm() }
                     </View>
                 </View>
             </View>
@@ -73,15 +91,50 @@ export default class TransferContainer extends Component {
         return false;
     }
 
-    handleChangeAccount = (account) => {
-        this.setState({account: account});
+    handleClickCheck = () => {
+        this.service.getAccountById(this.state.recipientAccountId)
+            .then((response) => {
+                this.setState({
+                    recipientAccountId: 'A000000002',
+                    recipientAccountName: 'Akhmad Fauzan',
+                    isFoundRecipient: true
+                });
+            })
+            .catch((error) => {
+                showMessage({
+                    message: "Transaction Fail",
+                    description: error.data || error.message,
+                    type: "danger",
+                    icon: "danger"
+                });
+                console.log(JSON.stringify(error) + 'error ini')
+            });
+        // this.setState({
+        //     recipientAccountId: 'A000000002',
+        //     recipientAccountName: 'Akhmad Fauzan',
+        //     isFoundRecipient: true
+        // });
+    };
+
+    handleChangeAccount = (recipientAccount) => {
+        this.setState({
+            btnCheckDisabled: true,
+            isFoundRecipient: false
+        });
+        if (recipientAccount.length >= 8 ) {
+            this.setState({
+                recipientAccountId: recipientAccount,
+                isFoundRecipient: false,
+                btnCheckDisabled: false
+            });
+        }
     };
 
     handleChangeAmount = (amount) => {
         let inAmount = amount.replace(/[^0-9]/g, '');
-        this.setState({isDisabled: true})
+        this.setState({btnConfirmDisabled: true})
         if (this.isValidAmount(inAmount)) {
-            this.setState({isDisabled: false})
+            this.setState({btnConfirmDisabled: false})
         }
         this.setState({amount: inAmount});
     };
@@ -113,22 +166,20 @@ export default class TransferContainer extends Component {
     }
 
     handleSubmit = () => {
-
         let jsonRequest = {
-            accountId: this.state.account,
             amount: this.state.amount.replace('.', ''),
             description: this.state.description,
             balance: this.state.balance
         }
 
-        this.service.postTransfer(jsonRequest)
+        this.service.postTransfer(jsonRequest, this.state.recipientAccountId)
             .then(() => {
-                showMessage({
-                    message: "Transaction Success",
-                    description: "Please kindly check your wallet balance",
+                showMessage(Object.assign({
+                    message: "Transaction successful",
+                    description: "Please check your balance",
                     type: "success",
-                    icon: "success"
-                });
+                    icon: "success",
+                }, stylesBase.MESSAGE_SUCCESS));
                 this.props.navigation.navigate('Home')
             })
             .catch((error) => {
@@ -138,7 +189,6 @@ export default class TransferContainer extends Component {
                     type: "danger",
                     icon: "danger"
                 });
-                console.log(error + 'error ini')
             });
     };
 }

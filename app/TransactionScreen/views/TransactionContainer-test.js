@@ -14,7 +14,7 @@ describe('TransactionContainer', () => {
 
     describe('render', () => {
         it('should be render Transaction Form', () => {
-            expect(renderedComponent().find('TransactionForm')).toBeDefined();
+            expect(renderedComponent().find('SearchRecipientForm')).toBeDefined();
         });
     });
 

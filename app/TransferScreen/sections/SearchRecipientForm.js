@@ -11,7 +11,7 @@ const SearchRecipientForm = props => (
       <FormInput
         id="account"
         value={props.account}
-        placeholder="Recipient Account (Min. 8 Digits)"
+        placeholder="Recipient Account (Min. 8 Characters)"
         onChangeText={props.onChangeAccount}
       />
     </View>
