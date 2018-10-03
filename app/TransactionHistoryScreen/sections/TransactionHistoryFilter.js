@@ -74,9 +74,7 @@ export default class TransactionHistoryFilter extends React.Component {
     }
 
     checkBoxOnChange = () => {
-        this.setState({
-            sort: (this.state.sort !== 1) ? 1 : 2,
-        })
+        this.state.sort= (this.state.sort !==1)? 1:2
         this.componentDidMount();
     }
 
