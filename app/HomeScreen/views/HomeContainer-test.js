@@ -37,7 +37,10 @@ describe('HomeContainer', () => {
           expect(wrapper.find('TransactionHeader').props().data).toEqual([]);
       });
 
+      it('should have props data in Transaction Header', () => {
+          const wrapper = shallow(<HomeContainer />);
+          expect(wrapper.find('TransactionHeader').props().data).toEqual([]);
+      });
 
-      //navigate
   });
 });

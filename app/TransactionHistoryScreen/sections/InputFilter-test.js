@@ -29,17 +29,16 @@ describe('Transaction Input', () => {
       const callbackFnDialog = jest.fn();
       const renderedComponent = setup().setProps({ showDialog: callbackFnDialog, inputOnChange: callbackFn, isTrue: true });
 
-      renderedComponent.find('#Filter').simulate('press', { target: {} });
-      renderedComponent.find('#amount').simulate('change', { target: {} });
-      expect(callbackFn).toHaveBeenCalledTimes(0);
+      renderedComponent.find('#amount').simulate('ChangeText', { target: {} });
+      expect(callbackFn).toHaveBeenCalledTimes(1);
     });
 
       it('should call descriptionOnChange when the description is changed', () => {
           const callbackFn = jest.fn();
           const renderedComponent = setup().setProps({ descriptionOnChange: callbackFn });
 
-          renderedComponent.find('#decription').simulate('change', { target: {} });
-          expect(callbackFn).toHaveBeenCalledTimes(0);
+          renderedComponent.find('#decription').simulate('ChangeText', { target: {} });
+          expect(callbackFn).toHaveBeenCalledTimes(1);
       });
 
       it('should call handleCancel when the cancel button clicked', () => {
@@ -50,7 +49,7 @@ describe('Transaction Input', () => {
           expect(callbackFn).toHaveBeenCalledTimes(1);
       });
 
-      it('should call handleSubmit when the submit button clicked', () => {
+      it('should call handleSubmit when the submit button clicked2', () => {
           const callbackFn = jest.fn();
           const renderedComponent = setup().setProps({ handleSubmit: callbackFn });
 

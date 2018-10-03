@@ -60,5 +60,24 @@ describe('TransferContainer', () => {
             // await Promise.resolve();
             // expect(mockPostTransaction).toHaveBeenCalled();
         });
+
+        describe('handleSubmit', () => {
+            it('should be able to post to wallet when press button confirm', async () => {
+
+                // let mockPostTransaction = jest.fn(() => {
+                //     return Promise.resolve({
+                //         data: ""
+                //     })
+                // });
+                // AccountService.mockImplementation(() => {
+                //     return {
+                //         postTransaction: mockPostTransaction,
+                //     }
+                // });
+                // const wrapper = shallow(<TransferContainer/>);
+                // wrapper.instance().handleSubmit();
+                // await Promise.resolve();
+                // expect(mockPostTransaction).toHaveBeenCalled();
+            });
     });
 });
