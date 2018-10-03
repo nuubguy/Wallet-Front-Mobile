@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">42.86% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/7</span>
+        <span class='fraction'>7/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/5</span>
+        <span class='fraction'>5/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">42.86% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/7</span>
+        <span class='fraction'>7/7</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -133,26 +133,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -201,15 +201,15 @@ const styles = StyleSheet.create({
   },
 });
 &nbsp;
-function <span class="fstat-no" title="function not covered" >_currencyFormatter(</span>amount) {
-  const formatter = <span class="cstat-no" title="statement not covered" >new Intl.NumberFormat('id-ID', {</span>
+function _currencyFormatter(amount) {
+  const formatter = new Intl.NumberFormat('id-ID', {
     minimumFractionDigits: 2,
   });
-<span class="cstat-no" title="statement not covered" >  return formatter.format(amount);</span>
+  return formatter.format(amount);
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >_dateFormatter(</span>date) {
-<span class="cstat-no" title="statement not covered" >  return moment(date).format('MMM DD YYYY, h:mm A');</span>
+function _dateFormatter(date) {
+  return moment(date).format('MMM DD YYYY, h:mm A');
 }
 &nbsp;
 export default class TransactionList extends React.Component {
@@ -220,8 +220,8 @@ export default class TransactionList extends React.Component {
   render() {
     return (
       &lt;ScrollView style={styles.viewTable}&gt;
-        {this.props.currentTransactions.map(<span class="fstat-no" title="function not covered" >tr</span>ansaction =&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;ListItem avatar key={transaction.transactionId}&gt;</span>
+        {this.props.currentTransactions.map(transaction =&gt; (
+          &lt;ListItem avatar key={transaction.transactionId}&gt;
             &lt;Left /&gt;
             &lt;Body style={styles.borderBlack}&gt;
               &lt;Text style={styles.rowSpace}&gt;
@@ -240,7 +240,7 @@ export default class TransactionList extends React.Component {
             &lt;Right style={styles.borderBlack}&gt;
               &lt;Text style={styles.rowSpace}&gt;{_dateFormatter(transaction.dateTime)}&lt;/Text&gt;
               &lt;Text note&gt;
-                {`${transaction.transactionType.toLocaleUpperCase()}`}
+                {`${transaction.transactionType}`}
                 {' '}
               &lt;/Text&gt;
             &lt;/Right&gt;
@@ -256,7 +256,7 @@ export default class TransactionList extends React.Component {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Oct 03 2018 04:16:13 GMT+0700 (WIB)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Oct 03 2018 07:06:24 GMT+0700 (WIB)
 </div>
 </div>
 <script src="../../prettify.js"></script>

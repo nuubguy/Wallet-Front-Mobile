@@ -57,7 +57,7 @@ export default class TransactionList extends React.Component {
             <Right style={styles.borderBlack}>
               <Text style={styles.rowSpace}>{_dateFormatter(transaction.dateTime)}</Text>
               <Text note>
-                {`${transaction.transactionType.toLocaleUpperCase()}`}
+                {`${transaction.transactionType}`}
                 {' '}
               </Text>
             </Right>
