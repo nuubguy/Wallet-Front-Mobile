@@ -37,7 +37,7 @@ const TransactionForm = props => (
       <Button
         backgroundColor="#F4511E"
         id="btnConfirm"
-        title="Confirm"
+        title="Transfer"
         onPress={props.onPressSubmit}
         disabled={props.valid}
       />

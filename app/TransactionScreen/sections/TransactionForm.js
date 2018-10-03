@@ -27,7 +27,7 @@ const TransactionForm = (props) => (
         <View style={stylesBase.ROW}>
             <Button backgroundColor={'#F4511E'}
                     id="btnConfirm"
-                    title='Confirm'
+                    title='Top Up'
                     onPress={props.onPressSubmit}
                     disabled={props.valid}
             />

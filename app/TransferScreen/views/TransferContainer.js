@@ -78,10 +78,7 @@ export default class TransferContainer extends Component {
     }
 
     isValidAmount(Amount) {
-        if (Amount.replace('.', '') >= config.MINIMUM_TRX) {
-            return true;
-        }
-        return false;
+        return Amount >= config.MINIMUM_TRX && Amount <= config.MAXIMUM_TRX;
     }
 
     handleClickCheck = () => {
@@ -96,7 +93,7 @@ export default class TransferContainer extends Component {
                 return;
             }
             showMessage({
-                message: "Account not found",
+                message: "Payee is not linked with your account",
                 type: "danger",
                 icon: "danger"
             });
@@ -157,7 +154,7 @@ export default class TransferContainer extends Component {
         this.service.postTransfer(jsonRequest)
             .then(() => {
                 showMessage(Object.assign({
-                    message: "Transaction successful",
+                    message: "Transfer successful",
                     description: "Please check your balance",
                     type: "success",
                     icon: "success",
@@ -166,7 +163,7 @@ export default class TransferContainer extends Component {
             })
             .catch((error) => {
                 showMessage({
-                    message: "Transaction Fail",
+                    message: "Oops!",
                     description: error.data,
                     type: "danger",
                     icon: "danger"
