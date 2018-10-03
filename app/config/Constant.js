@@ -11,6 +11,7 @@ const config = {
   WITHDRAW_ICON: require('../resources/images/withdraw-icon.png'),
   TRANSFER_ICON: require('../resources/images/transfer-icon.png'),
   PAYEE_ICON: require('../resources/images/payee-icon.png'),
+  LOGOUT_ICON: require('../resources/images/logout-icon.png'),
   TRANSACTION_HISTORY_ICON: require('../resources/images/transaction-history.png'),
   MINIMUM_TRX: 15000,
   MAXIMUM_TRX: 50000000,

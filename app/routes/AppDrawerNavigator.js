@@ -49,8 +49,13 @@ const CustomDrawerComponent = props => (
       <DrawerItems {...props} />
       <View style={styles.menuLogout}>
         <TouchableOpacity style={{ flexDirection: 'row', paddingLeft: 10 }} onPress={() => signOutAsync(props)}>
-          <Image style={{ width: 30, height: 30 }} source={config.LOGOUT_IMAGE} />
-          <Text style={{ paddingLeft: 30, alignItems: 'center' }}>Logout</Text>
+          <Image style={{ width: 30, height: 30 }} source={config.LOGOUT_ICON} />
+          <Text style={{
+            paddingLeft: 30, alignItems: 'center', paddingTop: 5, fontWeight: 'bold',
+          }}
+          >
+Logout
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
