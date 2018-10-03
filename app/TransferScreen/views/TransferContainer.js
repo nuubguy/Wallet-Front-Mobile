@@ -145,7 +145,6 @@ export default class TransferContainer extends Component {
                 type: "danger",
                 icon: "danger"
             });
-            console.log(error)
         }
 
     }

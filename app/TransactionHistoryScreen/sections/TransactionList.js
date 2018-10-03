@@ -44,7 +44,6 @@ export default class TransactionList extends React.Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.props.currentTransactions));
     return (
       <ScrollView style={styles.viewTable}>
         {this.props.currentTransactions.map(transaction => (
@@ -67,7 +66,7 @@ export default class TransactionList extends React.Component {
             <Right style={styles.borderBlack}>
               <Text style={styles.rowSpace}>{_dateFormatter(transaction.dateTime)}</Text>
               <Text note>
-                {`${this.convertType(transaction.transactionType)}  `}
+                {transaction.transactionType}
                 {' '}
               </Text>
               <Text note>

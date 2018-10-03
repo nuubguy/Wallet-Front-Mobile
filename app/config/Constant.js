@@ -1,5 +1,6 @@
 const BASE_URL = 'http://localhost:8080';
-// const BASE_URL = 'http://magnus.serveo.net/';
+// const BASE_URL = 'http://1bcf4dca.ngrok.io';
+
 const config = {
   BASE_URL: `${BASE_URL}`,
   ACCOUNT_URL: `${BASE_URL}costumers/`,

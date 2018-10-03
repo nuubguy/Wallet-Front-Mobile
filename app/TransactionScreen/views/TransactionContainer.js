@@ -127,7 +127,6 @@ export default class TransactionContainer extends Component {
                     type: "danger",
                     icon: "danger"
                 });
-                console.log('error ' + JSON.stringify(error));
             });
     };
 }

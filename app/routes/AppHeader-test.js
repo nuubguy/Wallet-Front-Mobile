@@ -14,7 +14,6 @@ describe('AppHeader', () => {
     it('simulate press on header and call a callback', () => {
       const wrapper = shallow(<AppHeader title="Home" />);
       const callbackFn = jest.fn();
-      console.log(wrapper.debug());
     });
 
     it('should call handleSubmit when the submit button clicked2', () => {

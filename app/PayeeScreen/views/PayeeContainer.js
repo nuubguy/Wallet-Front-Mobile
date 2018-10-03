@@ -88,7 +88,7 @@ export default class PayeeContainer extends Component {
                 if (response.data.accountId === this.account) {
                     showMessage(Object.assign({
                         message: "Oops!",
-                        description: "You can not add payee with self",
+                        description: "This is your account id",
                         type: "danger",
                         icon: "danger",
                     }, stylesBase.MESSAGE_FAIL));
