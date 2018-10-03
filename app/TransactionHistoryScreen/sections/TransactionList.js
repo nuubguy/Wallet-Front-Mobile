@@ -34,6 +34,15 @@ export default class TransactionList extends React.Component {
     super(props);
   }
 
+  convertType = (type)=>{
+    if(type === 'credit'){
+        return 'TOP UP '
+    }
+    else{
+      return 'Transfer'
+    }
+  }
+
   render() {
     return (
       <ScrollView style={styles.viewTable}>
@@ -57,7 +66,7 @@ export default class TransactionList extends React.Component {
             <Right style={styles.borderBlack}>
               <Text style={styles.rowSpace}>{_dateFormatter(transaction.dateTime)}</Text>
               <Text note>
-                {`${transaction.transactionType.toLocaleUpperCase()}`}
+                {`${this.convertType(transaction.transactionType)}  ${transaction.subTransactionType}`}
                 {' '}
               </Text>
             </Right>
