@@ -448,19 +448,4 @@ export default class AccountService {
         console.log(error);
       });
   }
-
-  // getAccountProfile(customerId, password) {
-  //   const getCustomerUrl = '/customers/C00000001';
-  //   axios.defaults.adapter = require('axios/lib/adapters/http');
-  //   const result = axios.get(getCustomerUrl, {
-  //     auth: {
-  //       customerId: 'C00000001',
-  //       password: 'P@ssw0rd',
-  //     },
-  //   });
-  //   console.log(result);
-  //   // this.account = result.data;
-  //
-  //   return result;
-  // }
 }

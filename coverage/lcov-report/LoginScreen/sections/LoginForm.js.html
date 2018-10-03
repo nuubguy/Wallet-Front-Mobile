@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for config/Base.js</title>
+    <title>Code coverage report for LoginScreen/sections/LoginForm.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../index.html">All files</a> / <a href="index.html">config</a> Base.js
+      <a href="../../index.html">All files</a> / <a href="index.html">LoginScreen/sections</a> LoginForm.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>4/6</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,18 +30,18 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>1/3</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>4/6</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -112,17 +112,26 @@
 67
 68
 69
-70</td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+70
+71
+72
+73
+74
+75
+76</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,6 +144,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,6 +157,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,80 +187,87 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const style = {
-  IMAGE_MENU: {
-    width: 40,
-    height: 40,
-  },
-  IMAGE_ICON: {
-    width: 25,
-    height: 25,
-  },
-  CONTAINER: {
-    backgroundColor: '#f5f5f5',
-  },
-  BODY: {
-    alignItems: 'center',
-  },
-  ROW: {
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  BTN_SUCCESS: {
-    backgroundColor: '#33ad41',
-    color: '#fff',
-  },
-  HOME_SCREEN_STYLE: {
-    container: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-    },
-    text: {
-      fontSize: 24,
-      color: '#333333',
-      flexDirection: 'row',
-      fontWeight: 'bold',
-    },
-    balance: {
-      fontSize: 18,
-      color: '#101010',
-    },
-    row: {
-      flexDirection: 'row',
-      width: '100%',
-    },
-    right: {
-      flexDirection: 'row',
-    },
-  },
-  MESSAGE_SUCCESS: {
-    backgroundColor: '#76daff',
-    color: '#000',
-  },
-  MESSAGE_FAIL: {
-    backgroundColor: '#ff6e47',
-    color: '#000',
-  },
-  LIST: {
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    shadowColor: '#000',
-    backgroundColor: '#fff',
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
-    padding: 5,
-    height: '87%',
-  },
-};
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import PropTypes from 'prop-types';
+import {
+    View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar,
+} from 'react-native';
 &nbsp;
-module.exports = style;
+// represent form to authenticate user
+const LoginForm = props =&gt; (
+    &lt;View style={styles.container}&gt;
+        &lt;StatusBar barStyle="light-content" /&gt;
+        &lt;TextInput
+            id="email"
+            style={styles.input}
+            onSubmitEditing={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >this.passwordInput.focus()}</span>
+            keyboardType="email-address"
+            returnKeyType="next"
+            placeholder="Enter Email"
+            placeholderTextColor="#fff"
+            onChangeText={props.onChangeEmail}
+            value={props.email}
+        /&gt;
+&nbsp;
+        &lt;TextInput
+            id="password"
+            style={styles.input}
+            returnKeyType="go"
+            ref={<span class="fstat-no" title="function not covered" >in</span>put =&gt; <span class="cstat-no" title="statement not covered" >this.passwordInput = input}</span>
+            placeholder="Enter Password"
+            placeholderTextColor="#fff"
+            onChangeText={props.onChangePassword}
+            value={props.password}
+            secureTextEntry
+        /&gt;
+        &lt;TouchableOpacity style={styles.buttonContainer} id="btnLogin" onPress={props.onPressSubmit}&gt;
+            &lt;Text style={styles.buttonText}&gt;LOGIN&lt;/Text&gt;
+        &lt;/TouchableOpacity&gt;
+    &lt;/View&gt;
+);
+&nbsp;
+const styles = StyleSheet.create({
+    container: {
+        padding: 20,
+    },
+    input: {
+        height: 40,
+        backgroundColor: '#0d4745',
+        marginBottom: 10,
+        padding: 10,
+        color: '#fff',
+        borderRadius: 10,
+    },
+    buttonContainer: {
+        backgroundColor: '#2980b6',
+        paddingVertical: 15,
+    },
+    buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: '700',
+    },
+    loginButton: {
+        backgroundColor: '#2980b6',
+        color: '#fff',
+    },
+&nbsp;
+});
+&nbsp;
+export default LoginForm;
+&nbsp;
+LoginForm.propTypes = {
+    email: PropTypes.string,
+    password: PropTypes.string,
+    onChangeEmail: PropTypes.func,
+    onChangePassword: PropTypes.func,
+};
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
@@ -259,7 +277,7 @@ module.exports = style;
   generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Oct 03 2018 19:24:51 GMT+0700 (WIB)
 </div>
 </div>
-<script src="../prettify.js"></script>
+<script src="../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -267,6 +285,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="../sorter.js"></script>
+<script src="../../sorter.js"></script>
 </body>
 </html>

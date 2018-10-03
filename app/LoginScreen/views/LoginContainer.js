@@ -92,8 +92,6 @@ export default class LoginContainer extends React.Component {
                 message: "Invalid username or password",
                 icon: "danger",
             }, stylesBase.MESSAGE_FAIL));
-
-            console.log(e);
         }
     };
 }
