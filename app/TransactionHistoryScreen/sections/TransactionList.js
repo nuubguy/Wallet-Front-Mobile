@@ -39,7 +39,7 @@ export default class TransactionList extends React.Component {
         return 'TOP UP '
     }
     else{
-      return 'Transfer'
+      return 'TRANSFER'
     }
   }
 
@@ -66,8 +66,13 @@ export default class TransactionList extends React.Component {
             <Right style={styles.borderBlack}>
               <Text style={styles.rowSpace}>{_dateFormatter(transaction.dateTime)}</Text>
               <Text note>
-                {`${this.convertType(transaction.transactionType)}  ${transaction.subTransactionType}`}
+                {`${this.convertType(transaction.transactionType)}  `}
                 {' '}
+              </Text>
+              <Text note>
+                  {
+                      `${transaction.subTransactionType}`
+                  }
               </Text>
             </Right>
           </ListItem>
