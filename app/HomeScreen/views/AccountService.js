@@ -36,11 +36,11 @@ export default class AccountService {
       data: response.data.map((item) => {
         function getTransactionType(item) {
           if (item.credit === accountId || item.credit.accountId === accountId) {
-            return Constant.credit();
+            return Constant.CREDIT;
           }
 
           if (item.debit === accountId || item.debit.accountId === accountId) {
-            return Constant.debit();
+            return Constant.DEBIT;
           }
         }
 
@@ -242,35 +242,6 @@ export default class AccountService {
     }));
   }
 
-  getAllAndSortByAmount() {
-    const accountId = this.accountId;
-    const baseUrl = this.baseUrl;
-    const transactionListUrl = `${baseUrl}/transactions/?accountId=${accountId}&
-    limitResultFromLatest=&description=&amount=&status=1`;
-    return axios.get(transactionListUrl).then(response => ({
-      status: response.status,
-      data: response.data.map((item) => {
-        function getTransactionType(item) {
-          if (item.credit === accountId || item.credit.accountId === accountId) {
-            return 'credit';
-          }
-
-          if (item.debit === accountId || item.debit.accountId === accountId) {
-            return 'debit';
-          }
-        }
-
-        return {
-          transactionId: item.transactionId,
-          transactionType: getTransactionType(item),
-          dateTime: item.dateTime,
-          amount: item.transactionAmount.amount,
-          currency: item.transactionAmount.currency,
-          description: item.description,
-        };
-      }),
-    }));
-  }
 
 
   postTransaction(transaction) {

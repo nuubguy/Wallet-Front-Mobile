@@ -59,13 +59,13 @@ export default class TransactionHistoryFilter extends React.Component {
     };
 
     inputOnChange = (value) => {
-        if (value.match(/^[0-9]*$/g)) {
-            this.setState(
-                {
-                    amount: '',
-                }
-            )
-        }
+        // if (value.match(/^[0-9]*$/g)) {
+        //     this.setState(
+        //         {
+        //             amount: '',
+        //         }
+        //     )
+        // }
 
         this.setState({
                 amount: value
