@@ -10,7 +10,7 @@ const config = {
     BALANCE_ICON: require('../resources/images/balance-icon.png'),
     WITHDRAW_ICON: require('../resources/images/withdraw-icon.png'),
     TRANSFER_ICON: require('../resources/images/transfer-icon.png'),
-    SORT_ICON: require('../resources/images/sort-icon.png'),
+    PAYEE_ICON: require('../resources/images/payee-icon.png'),
     TRANSACTION_HISTORY_ICON: require('../resources/images/transaction-history.png'),
     MINIMUM_TRX: 15000,
     MAXIMUM_TRX: 50000000,

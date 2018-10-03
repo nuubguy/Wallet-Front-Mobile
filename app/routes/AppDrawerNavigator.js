@@ -8,6 +8,7 @@ import HomeContainer from '../HomeScreen/views/HomeContainer';
 import TopUpContainer from '../TransactionScreen/views/TopUpContainer';
 import TransactionHistoryFilter from '../TransactionHistoryScreen/sections/TransactionHistoryFilter';
 import TransferContainer from '../TransferScreen/views/TransferContainer';
+import PayeeContainer from "../PayeeScreen/views/PayeeContainer";
 
 const {width, height} = Dimensions.get('screen');
 
@@ -47,6 +48,7 @@ const AppDrawerNavigator = createDrawerNavigator({
     'Top Up': TopUpContainer,
     Transfer: TransferContainer,
     'Transaction History': TransactionHistoryFilter,
+    'Payee' : PayeeContainer
 
 }, {
     contentComponent: CustomDrawerComponent,
