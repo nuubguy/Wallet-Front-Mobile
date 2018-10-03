@@ -37,7 +37,7 @@ describe('accountService', () => {
 
             const testAccount = TestAccount();
 
-            const result = await testAccount.getCustomerInfo();
+            const result = await testAccount.getAccount();
 
             expect(result.status).toBe(200);
             expect(result.data.customerId).toBe('C00000001');
@@ -107,6 +107,423 @@ describe('accountService', () => {
         });
     });
 
+    describe('getAllTransactionList', () => {
+        it('should fetch with default sort by date', async () => {
+            let transactionList = [{
+                "transactionId": "T00000007",
+                "debit": {
+                    "accountId": "A00000001",
+                    "customer": {
+                        "customerId": "C00000002",
+                        "name": "customer 1",
+                        "info": "customer 1 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 1500000.0, "currency": "IDR"}
+                },
+                "credit": {
+                    "accountId": "A00000002",
+                    "customer": {
+                        "customerId": "C00000004",
+                        "name": "customer 2",
+                        "info": "customer 2 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 8500000.0, "currency": "IDR"}
+                },
+                "dateTime": "2018-09-15T16:22:04.601",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000006",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.569",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000005",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.537",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000004",
+                "debit": "A00000002",
+                "credit": "A00000001",
+                "dateTime": "2018-09-15T16:22:04.509",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000003",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.485",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }];
+            axios.get.mockImplementationOnce(() => Promise.resolve({
+                status: 200,
+                data: transactionList
+            }));
+
+            let testAccount = TestAccount();
+
+            let result = await testAccount.getAllTransactionList(0);
+
+            expect(result.status).toBe(200);
+            expect(result.data.length).toBe(5);
+            expect(result.data[0].transactionId).toBe("T00000007");
+            expect(result.data[3].transactionType).toBe("credit");
+            expect(result.data[4].transactionType).toBe("debit");
+
+        });
+
+        it('should fetch with sort by amount ascending', async () => {
+            let transactionList = [{
+                "transactionId": "T00000007",
+                "debit": {
+                    "accountId": "A00000001",
+                    "customer": {
+                        "customerId": "C00000002",
+                        "name": "customer 1",
+                        "info": "customer 1 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 1500000.0, "currency": "IDR"}
+                },
+                "credit": {
+                    "accountId": "A00000002",
+                    "customer": {
+                        "customerId": "C00000004",
+                        "name": "customer 2",
+                        "info": "customer 2 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 8500000.0, "currency": "IDR"}
+                },
+                "dateTime": "2018-09-15T16:22:04.601",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000006",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.569",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000005",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.537",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000004",
+                "debit": "A00000002",
+                "credit": "A00000001",
+                "dateTime": "2018-09-15T16:22:04.509",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000003",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.485",
+                "transactionAmount": {"amount": 10000000.0, "currency": "IDR"}
+            }];
+            axios.get.mockImplementationOnce(() => Promise.resolve({
+                status: 200,
+                data: transactionList
+            }));
+
+            let testAccount = TestAccount();
+
+            let result = await testAccount.getAllTransactionList(1);
+
+            expect(result.status).toBe(200);
+            expect(result.data.length).toBe(5);
+            expect(result.data[0].transactionId).toBe("T00000007");
+            expect(result.data[3].transactionType).toBe("credit");
+            expect(result.data[4].transactionType).toBe("debit");
+
+        });
+    });
+
+    describe('getTransactionListBasedOnDescription', () => {
+        it('should fetch with description and default sort by date', async () => {
+            let transactionList = [{
+                "transactionId": "T00000007",
+                "debit": {
+                    "accountId": "A00000001",
+                    "customer": {
+                        "customerId": "C00000002",
+                        "name": "customer 1",
+                        "info": "customer 1 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 1500000.0, "currency": "IDR"}
+                },
+                "credit": {
+                    "accountId": "A00000002",
+                    "customer": {
+                        "customerId": "C00000004",
+                        "name": "customer 2",
+                        "info": "customer 2 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 8500000.0, "currency": "IDR"}
+                },
+                "dateTime": "2018-09-15T16:22:04.601",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000006",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.569",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000005",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.537",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000004",
+                "debit": "A00000002",
+                "credit": "A00000001",
+                "dateTime": "2018-09-15T16:22:04.509",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000003",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.485",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }];
+            axios.get.mockImplementationOnce(() => Promise.resolve({
+                status: 200,
+                data: transactionList
+            }));
+
+            let testAccount = TestAccount();
+
+            let result = await testAccount.getTransactionListBasedOnDescription('beli mobil',0);
+
+            expect(result.status).toBe(200);
+            expect(result.data.length).toBe(5);
+            expect(result.data[0].transactionId).toBe("T00000007");
+            expect(result.data[3].transactionType).toBe("credit");
+            expect(result.data[4].transactionType).toBe("debit");
+
+        });
+
+    });
+
+    describe('getTransactionListBasedOnAmount', () => {
+        it('should fetch with filter by amount', async () => {
+            let transactionList = [{
+                "transactionId": "T00000007",
+                "debit": {
+                    "accountId": "A00000001",
+                    "customer": {
+                        "customerId": "C00000002",
+                        "name": "customer 1",
+                        "info": "customer 1 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 1500000.0, "currency": "IDR"}
+                },
+                "credit": {
+                    "accountId": "A00000002",
+                    "customer": {
+                        "customerId": "C00000004",
+                        "name": "customer 2",
+                        "info": "customer 2 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 8500000.0, "currency": "IDR"}
+                },
+                "dateTime": "2018-09-15T16:22:04.601",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000006",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.569",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000005",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.537",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000004",
+                "debit": "A00000002",
+                "credit": "A00000001",
+                "dateTime": "2018-09-15T16:22:04.509",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000003",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.485",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }];
+            axios.get.mockImplementationOnce(() => Promise.resolve({
+                status: 200,
+                data: transactionList
+            }));
+
+            let testAccount = TestAccount();
+
+            let result = await testAccount.getTransactionListBasedOnAmount(500000,0);
+
+            expect(result.status).toBe(200);
+            expect(result.data.length).toBe(5);
+            expect(result.data[0].transactionId).toBe("T00000007");
+            expect(result.data[3].transactionType).toBe("credit");
+            expect(result.data[4].transactionType).toBe("debit");
+
+        });
+
+    });
+
+    describe('getTransactionListBasedOnAmountAndDescription', () => {
+        it('should fetch with filter by amount and description', async () => {
+            let transactionList = [{
+                "transactionId": "T00000007",
+                "debit": {
+                    "accountId": "A00000001",
+                    "customer": {
+                        "customerId": "C00000002",
+                        "name": "customer 1",
+                        "info": "customer 1 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 1500000.0, "currency": "IDR"}
+                },
+                "credit": {
+                    "accountId": "A00000002",
+                    "customer": {
+                        "customerId": "C00000004",
+                        "name": "customer 2",
+                        "info": "customer 2 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 8500000.0, "currency": "IDR"}
+                },
+                "dateTime": "2018-09-15T16:22:04.601",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000006",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.569",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000005",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.537",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000004",
+                "debit": "A00000002",
+                "credit": "A00000001",
+                "dateTime": "2018-09-15T16:22:04.509",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000003",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.485",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }];
+            axios.get.mockImplementationOnce(() => Promise.resolve({
+                status: 200,
+                data: transactionList
+            }));
+
+            let testAccount = TestAccount();
+
+            let result = await testAccount.getTransactionListBasedOnAmountAndDescription(500000,'beli mobil');
+
+            expect(result.status).toBe(200);
+            expect(result.data.length).toBe(5);
+            expect(result.data[0].transactionId).toBe("T00000007");
+            expect(result.data[3].transactionType).toBe("credit");
+            expect(result.data[4].transactionType).toBe("debit");
+
+        });
+
+    });
+
+    describe('getLatestTransaction', () => {
+        it('should fetch the latest transaction', async () => {
+            let transactionList = [{
+                "transactionId": "T00000007",
+                "debit": {
+                    "accountId": "A00000001",
+                    "customer": {
+                        "customerId": "C00000002",
+                        "name": "customer 1",
+                        "info": "customer 1 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 1500000.0, "currency": "IDR"}
+                },
+                "credit": {
+                    "accountId": "A00000002",
+                    "customer": {
+                        "customerId": "C00000004",
+                        "name": "customer 2",
+                        "info": "customer 2 info",
+                        "disabled": false
+                    },
+                    "balance": {"amount": 8500000.0, "currency": "IDR"}
+                },
+                "dateTime": "2018-09-15T16:22:04.601",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000006",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.569",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000005",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.537",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000004",
+                "debit": "A00000002",
+                "credit": "A00000001",
+                "dateTime": "2018-09-15T16:22:04.509",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }, {
+                "transactionId": "T00000003",
+                "debit": "A00000001",
+                "credit": "A00000002",
+                "dateTime": "2018-09-15T16:22:04.485",
+                "transactionAmount": {"amount": 500000.0, "currency": "IDR"}
+            }];
+            axios.get.mockImplementationOnce(() => Promise.resolve({
+                status: 200,
+                data: transactionList
+            }));
+
+            let testAccount = TestAccount();
+
+            let result = await testAccount.getLatestTransaction();
+
+            expect(result.status).toBe(200);
+            expect(result.data.length).toBe(5);
+            expect(result.data[0].transactionId).toBe("T00000007");
+            expect(result.data[3].transactionType).toBe("credit");
+            expect(result.data[4].transactionType).toBe("debit");
+
+        });
+
+    });
+
+
     describe('postTransaction', async () => {
         it('should success post transaction to API', async () => {
             const respBalance = {amount: 5000000.0, currency: 'IDR'};
@@ -143,7 +560,6 @@ describe('accountService', () => {
 
             const testAccount = TestAccount();
             await testAccount.getAccount();
-            await testAccount.getCustomerInfo();
             const result = await testAccount.postTransaction({transactionType: 'credit', amount: 1000000});
 
             expect(result.data.transactionId).toBe('T00000006');
@@ -182,17 +598,15 @@ describe('accountService', () => {
 
             const testAccount = TestAccount();
             await testAccount.getAccount();
-            await testAccount.getCustomerInfo();
             let result;
             try {
                 result = await testAccount.postTransaction({transactionType: 'credit', amount: 1000000});
             } catch (e) {
-                result = e.response.data;
+                result = e;
             }
 
-
             expect(result.status).toBe(403);
-            expect(result.message).toBe('Insufficient balance');
+            expect(result.data).toBe('Insufficient balance');
         });
     });
 });

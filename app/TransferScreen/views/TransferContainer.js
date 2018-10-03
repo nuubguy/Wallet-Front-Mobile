@@ -29,6 +29,7 @@ export default class TransferContainer extends Component {
             },
             payees: [],
             isEditable: false,
+            isFound: false,
             transactionType: config.CREDIT
 
         }
@@ -82,22 +83,25 @@ export default class TransferContainer extends Component {
     }
 
     handleClickCheck = () => {
-
         let inputAccountId = this.state.recipientAccountId;
-        for (let i = 0; i < this.state.payees.length; i++) {
-            if(this.state.payees[i].accountId === inputAccountId){
-                this.setState({
-                    isEditable: true,
-                    recipientAccountName: this.state.payees[i].customer.name
-                });
-                return;
+        let numberOfPayees = this.state.payees.length;
+        if (numberOfPayees > 0) {
+            for (let i = 0; i < numberOfPayees; i++) {
+                if (this.state.payees[i].accountId === inputAccountId) {
+                    this.setState({
+                        isEditable: true,
+                        isFound: true,
+                        recipientAccountName: this.state.payees[i].customer.name
+                    });
+                    return;
+                }
             }
-            showMessage({
-                message: "Payee is not linked with your account",
-                type: "danger",
-                icon: "danger"
-            });
         }
+        showMessage({
+            message: "Payee is not linked with your account",
+            type: "danger",
+            icon: "danger"
+        });
     };
 
     handleChangeAccount = (recipientAccount) => {
@@ -105,6 +109,7 @@ export default class TransferContainer extends Component {
             recipientAccountId: recipientAccount,
             recipientAccountName: '',
             isEditable: false,
+            isFound: false
         });
     };
 
@@ -168,7 +173,6 @@ export default class TransferContainer extends Component {
                     type: "danger",
                     icon: "danger"
                 });
-
             });
     };
 }
