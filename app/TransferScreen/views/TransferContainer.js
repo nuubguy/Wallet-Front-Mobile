@@ -93,7 +93,7 @@ export default class TransferContainer extends Component {
                 return;
             }
             showMessage({
-                message: "Payee is not link with your account",
+                message: "Payee is not linked with your account",
                 type: "danger",
                 icon: "danger"
             });
