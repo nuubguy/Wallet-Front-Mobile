@@ -23,14 +23,14 @@ export default class AccountService {
   }
 
   getAccountById(accountId) {
-        const getCustomerUrl = `${this.baseUrl}/accounts?accountId=${accountId}`;
-        try {
-            const result = AccountService.axiosGet(getCustomerUrl);
-            this.account = result.data;
-            return result;
-        } catch (error) {
-            throw error;
-        }
+    const getCustomerUrl = `${this.baseUrl}/accounts?accountId=${accountId}`;
+    try {
+      const result = AccountService.axiosGet(getCustomerUrl);
+      this.account = result.data;
+      return result;
+    } catch (error) {
+      throw error;
+    }
   }
 
   static axiosGet(url) {
@@ -88,21 +88,21 @@ export default class AccountService {
           }
         }
 
-          function getSubTransactionType(item) {
-              if (item.credit.accountId === accountId) {
-                  if (item.debit.accountId !== 'CASH ACCOUNT') {
-                      return `from ${item.debit.customer.name}-${item.debit.accountId}`;
-                  }
-                  return '';
-              }
-
-              if (item.debit.accountId === accountId) {
-                  if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
-                      return `to ${item.credit.customer.name}-${item.credit.accountId}`;
-                  }
-                  return '';
-              }
+        function getSubTransactionType(item) {
+          if (item.credit.accountId === accountId) {
+            if (item.debit.accountId !== 'CASH ACCOUNT') {
+              return `from ${item.debit.customer.name}-${item.debit.accountId}`;
+            }
+            return '';
           }
+
+          if (item.debit.accountId === accountId) {
+            if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
+              return `to ${item.credit.customer.name}-${item.credit.accountId}`;
+            }
+            return '';
+          }
+        }
 
         return {
           transactionId: item.transactionId,
@@ -111,7 +111,7 @@ export default class AccountService {
           amount: item.transactionAmount.amount,
           currency: item.transactionAmount.currency,
           description: item.description,
-            subTransactionType : getSubTransactionType(item)
+          subTransactionType: getSubTransactionType(item),
         };
       }),
     }));
@@ -133,21 +133,21 @@ export default class AccountService {
             return 'debit';
           }
         }
-          function getSubTransactionType(item) {
-              if (item.credit.accountId === accountId) {
-                  if (item.debit.accountId !== 'CASH ACCOUNT') {
-                      return `from ${item.debit.customer.name}-${item.debit.accountId}`;
-                  }
-                  return '';
-              }
-
-              if (item.debit.accountId === accountId) {
-                  if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
-                      return `to ${item.credit.customer.name}-${item.credit.accountId}`;
-                  }
-                  return '';
-              }
+        function getSubTransactionType(item) {
+          if (item.credit.accountId === accountId) {
+            if (item.debit.accountId !== 'CASH ACCOUNT') {
+              return `from ${item.debit.customer.name}-${item.debit.accountId}`;
+            }
+            return '';
           }
+
+          if (item.debit.accountId === accountId) {
+            if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
+              return `to ${item.credit.customer.name}-${item.credit.accountId}`;
+            }
+            return '';
+          }
+        }
 
         return {
           transactionId: item.transactionId,
@@ -156,7 +156,7 @@ export default class AccountService {
           amount: item.transactionAmount.amount,
           currency: item.transactionAmount.currency,
           description: item.description,
-            subTransactionType : getSubTransactionType(item)
+          subTransactionType: getSubTransactionType(item),
         };
       }),
     }));
@@ -379,5 +379,33 @@ export default class AccountService {
 
       throw friendlyError;
     });
+  }
+
+  putPayee(payees) {
+    console.log(payees);
+    const customerId = this.customerId;
+    const accountId = this.accountId;
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    const transferRequest = {
+      accountId,
+      payees,
+    };
+
+    console.log(transferRequest);
+
+    const putPayeeUrl = `${this.baseUrl}/customers/${customerId}/accounts`;
+
+    return axios.put(putPayeeUrl, transferRequest, { headers })
+      .then(response => ({
+        status: response.status,
+        data: response.data,
+      }))
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
