@@ -8,6 +8,7 @@ import Balance from "../../HomeScreen/sections/Balance";
 import PropTypes from "prop-types";
 import AppHeader from "../../routes/AppHeader";
 import PayeeForm from "../sections/PayeeForm";
+import TransferForm from "../../TransferScreen/sections/TransferForm";
 
 //represent amount needed to restore something to its former level
 export default class PayeeContainer extends Component {
@@ -23,7 +24,7 @@ export default class PayeeContainer extends Component {
         this.username = 'C00000001';
         this.account = 'A00000001';
         this.service = new AccountService(this.username, this.account, config.BASE_URL);
-        this.getBalance();
+        this.getInfoAccount();
     }
 
     static navigationOptions = {
@@ -43,6 +44,7 @@ export default class PayeeContainer extends Component {
                             payeeAccountName={this.state.payeeAccountName}
                             onChangeAccount={this.handleChangeAccount}
                             onPressCheck={this.handleClickCheck}
+                            onPressSubmit={this.handleSubmit}
                             isDisabledSubmit={this.state.isDisabledSubmit}
                         />
                     </View>
@@ -59,14 +61,10 @@ export default class PayeeContainer extends Component {
         });
     };
 
-    getBalance = async () => {
+    getInfoAccount = async () => {
         try {
             let response = await this.service.getAccount();
             this.setState({
-                balance: {
-                    amount: response.data.balance.amount,
-                    currency: response.data.balance.currency,
-                },
                 payees: response.data.payees
             })
         }
@@ -77,7 +75,6 @@ export default class PayeeContainer extends Component {
                 type: "danger",
                 icon: "danger"
             });
-            console.log(error)
         }
 
     }
@@ -87,7 +84,7 @@ export default class PayeeContainer extends Component {
 
         this.service.getAccountById(accountId)
             .then((response) => {
-                if(response.data.accountId === this.account){
+                if (response.data.accountId === this.account) {
                     showMessage(Object.assign({
                         message: "Oops!",
                         description: "You can not add payee with self",
@@ -95,15 +92,15 @@ export default class PayeeContainer extends Component {
                         icon: "danger",
                     }, stylesBase.MESSAGE_FAIL));
                 }
-                else{
+                else {
                     showMessage(Object.assign({
                         message: "Data found",
                         type: "success",
                         icon: "success",
                     }, stylesBase.MESSAGE_SUCCESS));
                     this.setState({
-                        payeeAccountName : response.data.customerName,
-                        isDisabledSubmit : false
+                        payeeAccountName: response.data.customerName,
+                        isDisabledSubmit: false
                     })
                 }
 
@@ -112,6 +109,33 @@ export default class PayeeContainer extends Component {
                 showMessage({
                     message: "Oops!",
                     description: 'Account not found',
+                    type: "danger",
+                    icon: "danger"
+                });
+
+            });
+    };
+
+    handleSubmit = () => {
+        let payees = [...this.state.payees,
+            {
+                accountId: this.state.payeeAccount,
+                customerName: this.state.payeeAccountName
+            }]
+
+        this.service.putPayee(payees)
+            .then(() => {
+                showMessage(Object.assign({
+                    message: "Add payee successful",
+                    type: "success",
+                    icon: "success",
+                }, stylesBase.MESSAGE_SUCCESS));
+                this.props.navigation.navigate('Transfer')
+            })
+            .catch((error) => {
+                showMessage({
+                    message: "Oops!",
+                    description: error.data,
                     type: "danger",
                     icon: "danger"
                 });
