@@ -2,6 +2,8 @@ import React from 'react';
 import {View, AsyncStorage, Image, StyleSheet, KeyboardAvoidingView, Text} from 'react-native';
 import * as config from '../../config/Constant';
 import LoginForm from "../sections/LoginForm";
+import FlashMessage, {showMessage} from "react-native-flash-message";
+import * as stylesBase from "../../config/Base";
 
 export default class LoginContainer extends React.Component {
 
@@ -9,7 +11,8 @@ export default class LoginContainer extends React.Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            isLogin: false
         }
     }
     static navigationOptions = { header: null };
@@ -47,24 +50,28 @@ export default class LoginContainer extends React.Component {
         })
     }
 
-    saveUserId = async () => {
-        const customerId = this.state.email;
-        try {
-            let data = await AsyncStorage.removeItem('customerId')
-        } catch (err) {
-            console.log(`The error is: ${err}`)
-        }
-        await AsyncStorage.setItem('customerId', customerId);
-    };
 
-    handleSubmit = () => {
-        this.saveUserId();
-        this._signInAsync();
+    handleSubmit = async () => {
+        await this._signInAsync();
+        if(this.state.isLogin){
+            this.props.navigation.navigate('Home');
+        }
     }
 
     _signInAsync = async () => {
-        await AsyncStorage.setItem('userToken', 'abc');
-        this.props.navigation.navigate('Home');
+
+        if(this.state.email === 'A00000001' && this.state.password === 'password'){
+            this.setState({
+                isLogin: true
+            })
+            // await AsyncStorage.setItem('userToken', 'abc');
+        }
+        else{
+            showMessage(Object.assign({
+                message: "Email or Password not found",
+                icon: "danger",
+            }, stylesBase.MESSAGE_FAIL));
+        }
     };
 }
 
