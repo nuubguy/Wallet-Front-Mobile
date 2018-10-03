@@ -22,6 +22,17 @@ export default class AccountService {
     }
   }
 
+  getAccountById(accountId) {
+        const getCustomerUrl = `${this.baseUrl}/accounts?accountId=${accountId}`;
+        try {
+            const result = AccountService.axiosGet(getCustomerUrl);
+            this.account = result.data;
+            return result;
+        } catch (error) {
+            throw error;
+        }
+  }
+
   static axiosGet(url) {
     return axios.get(url);
   }

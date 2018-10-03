@@ -10,7 +10,7 @@ const PayeeForm = props => (
         <View style={stylesBase.ROW}>
             <FormInput
                 id="account"
-                value={props.account}
+                value={props.payeeAccount}
                 placeholder="Account ID"
                 onChangeText={props.onChangeAccount}
             />
@@ -18,7 +18,7 @@ const PayeeForm = props => (
         <View style={stylesBase.ROW}>
             <FormInput
                 id="accountName"
-                value={props.accountName}
+                value={props.payeeAccountName}
                 placeholder="Account Name"
                 editable={false}
             />
@@ -26,9 +26,18 @@ const PayeeForm = props => (
         <View style={stylesBase.ROW}>
             <Button
                 id="btnCheck"
-                title="Add Payee"
+                title="Check"
                 onPress={props.onPressCheck}
                 backgroundColor="#33ad41"
+            />
+        </View>
+        <View style={stylesBase.ROW}>
+            <Button
+                id="btnSubmit"
+                title="Add Payee"
+                onPress={props.onPressSubmit}
+                backgroundColor="#F4511E"
+                disabled={props.isDisabledSubmit}
             />
         </View>
     </View>

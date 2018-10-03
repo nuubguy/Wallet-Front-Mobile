@@ -22,6 +22,10 @@ describe('PayeeForm', () => {
         it('should have input button check #btnCheck', () => {
             expect(payeeFormComponent().find('#btnCheck')).toBeDefined();
         });
+
+        it('should have input button check #btnSubmit', () => {
+            expect(payeeFormComponent().find('#btnSubmit')).toBeDefined();
+        });
     });
 
     describe('onChange', () => {
@@ -39,6 +43,13 @@ describe('PayeeForm', () => {
             const rendered = payeeFormComponent().setProps({ onPressCheck });
             rendered.find('#btnCheck').simulate('press');
             expect(onPressCheck).toHaveBeenCalled();
+        });
+
+        it('should be call onPressSubmit() when check button press', () => {
+            const onPressSubmit = jest.fn();
+            const rendered = payeeFormComponent().setProps({ onPressSubmit: onPressSubmit });
+            rendered.find('#btnSubmit').simulate('press');
+            expect(onPressSubmit).toHaveBeenCalled();
         });
     });
 });
