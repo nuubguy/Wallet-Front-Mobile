@@ -12,6 +12,7 @@ import {
     Fab, Icon
 } from 'native-base';
 import * as stylesBase from "../../config/Base";
+import {AccountData} from "../../config/Global";
 
 export default class TransactionHistoryFilter extends React.Component {
     constructor(props) {
@@ -24,8 +25,8 @@ export default class TransactionHistoryFilter extends React.Component {
             sort: 0,
             isTrue: true,
         }
-        this.username = 'C00000001';
-        this.account = 'A00000001';
+        this.username = AccountData.customerId;
+        this.account = AccountData.accountId;
     }
 
     static navigationOptions = {

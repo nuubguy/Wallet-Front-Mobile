@@ -10,8 +10,8 @@ describe('LoginForm', () => {
     }
 
     describe('render', () => {
-        it('should have input email #email', () => {
-            expect(loginFormComponent().find('#email')).toHaveLength(1);
+        it('should have input customerId #customerId', () => {
+            expect(loginFormComponent().find('#customerId')).toHaveLength(1);
         });
 
         it('should have input password #password', () => {
@@ -24,10 +24,10 @@ describe('LoginForm', () => {
     });
 
     describe('onChange', () => {
-        it('should be call onChangeEmail() when user input email', () => {
+        it('should be call onChangeEmail() when user input customerId', () => {
             const onChangeEmail = jest.fn();
             const rendered = loginFormComponent().setProps({onChangeEmail: onChangeEmail});
-            rendered.find('#email').simulate('changeText');
+            rendered.find('#customerId').simulate('changeText');
             expect(onChangeEmail).toHaveBeenCalled();
         });
 

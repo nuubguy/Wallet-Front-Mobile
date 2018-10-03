@@ -1,5 +1,6 @@
 import React from "react";
 import {ActivityIndicator, AsyncStorage, StatusBar, View} from "react-native";
+import {AccountData} from "../../config/Global";
 
 export default class LoginLoading extends React.Component {
     constructor() {
@@ -8,8 +9,9 @@ export default class LoginLoading extends React.Component {
     }
 
     _bootstrapAsync = async () => {
-        const userToken = await AsyncStorage.getItem('userToken');
-        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+        const username = await AsyncStorage.getItem('username');
+        this.props.navigation.navigate(username ? 'App' : 'Auth');
+        this.props.navigation.navigate(AccountData.accountId ? 'App' : 'Auth');
     };
 
     render() {

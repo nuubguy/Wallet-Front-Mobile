@@ -23,11 +23,11 @@ describe('LoginContainer', () => {
 
 
     describe('onChange', () => {
-        it('should  be able change the state of email when user input email', () => {
+        it('should  be able change the state of customerId when user input customerId', () => {
             const email = 'zoombank@btpn.com';
             const wrapper = shallow(<LoginContainer />);
             wrapper.instance().handleChangeEmail(email);
-            expect(wrapper.state().email).toBe(email);
+            expect(wrapper.state().customerId).toBe(email);
         });
         it('should  be able change the state of password when user input password', () => {
             const password = 'z00mBa321';

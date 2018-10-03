@@ -9,6 +9,7 @@ import Balance from "../../HomeScreen/sections/Balance";
 import PropTypes from "prop-types";
 import AppHeader from "../../routes/AppHeader";
 import SearchRecipientForm from "../sections/SearchRecipientForm";
+import {AccountData} from "../../config/Global";
 
 //represent amount needed to restore something to its former level
 export default class TransferContainer extends Component {
@@ -34,8 +35,8 @@ export default class TransferContainer extends Component {
 
         }
         this.transactionType = this.props.type;
-        this.username = 'C00000001';
-        this.account = 'A00000001';
+        this.username = AccountData.customerId;
+        this.account = AccountData.accountId;
         this.service = new AccountService(this.username, this.account, config.BASE_URL);
         this.getBalance();
 

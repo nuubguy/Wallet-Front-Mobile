@@ -4,18 +4,21 @@ import * as config from '../../config/Constant';
 import LoginForm from "../sections/LoginForm";
 import FlashMessage, {showMessage} from "react-native-flash-message";
 import * as stylesBase from "../../config/Base";
+import axios from 'axios';
+import {AccountData} from "../../config/Global";
 
 export default class LoginContainer extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            customerId: '',
             password: '',
             isLogin: false
         }
     }
-    static navigationOptions = { header: null };
+
+    static navigationOptions = {header: null};
 
     render() {
         return (
@@ -38,9 +41,9 @@ export default class LoginContainer extends React.Component {
         );
     }
 
-    handleChangeEmail = (email) => {
+    handleChangeEmail = (customerId) => {
         this.setState({
-            email: email
+            customerId: customerId
         })
     }
 
@@ -53,24 +56,44 @@ export default class LoginContainer extends React.Component {
 
     handleSubmit = async () => {
         await this._signInAsync();
-        if(this.state.isLogin){
+        if (this.state.isLogin) {
             this.props.navigation.navigate('Home');
         }
     }
 
     _signInAsync = async () => {
 
-        if(this.state.email === 'A00000001' && this.state.password === 'password'){
-            this.setState({
-                isLogin: true
-            })
-            // await AsyncStorage.setItem('userToken', 'abc');
-        }
-        else{
+        const getCustomerUrl = `${config.BASE_URL}/customers/${this.state.customerId}`;
+        try {
+            const result = await axios.get(getCustomerUrl, {
+                withCredentials: true,
+                auth: {
+                    username: this.state.customerId,
+                    password: this.state.password,
+                },
+            });
+            if (result.status === 200) {
+                this.setState({
+                    isLogin: true
+                })
+                AccountData.customerId = this.state.customerId;
+                AccountData.accountId = result.data.accountList[0].accountId;
+                await AsyncStorage.setItem('username', this.state.customerId);
+            }
+            else {
+                showMessage(Object.assign({
+                    message: "Invalid username or password",
+                    icon: "danger",
+                }, stylesBase.MESSAGE_FAIL));
+            }
+
+        } catch (e) {
             showMessage(Object.assign({
-                message: "Email or Password not found",
+                message: "Invalid username or password",
                 icon: "danger",
             }, stylesBase.MESSAGE_FAIL));
+
+            console.log(e);
         }
     };
 }
