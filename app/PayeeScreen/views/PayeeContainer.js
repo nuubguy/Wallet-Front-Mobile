@@ -94,7 +94,11 @@ export default class PayeeContainer extends Component {
                 }
                 else {
                     showMessage(Object.assign({
+<<<<<<< HEAD
                         message: "Data found",
+=======
+                        message: "Account found",
+>>>>>>> master
                         type: "success",
                         icon: "success",
                     }, stylesBase.MESSAGE_SUCCESS));

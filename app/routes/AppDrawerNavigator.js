@@ -57,7 +57,6 @@ const CustomDrawerComponent = props => (
   </SafeAreaView>
 );
 
-
 const AuthStack = createStackNavigator({ Login: LoginContainer });
 const AppStack = createDrawerNavigator({
   Home: HomeContainer,

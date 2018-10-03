@@ -55,6 +55,22 @@ export default class AccountService {
           }
         }
 
+        function getSubTransactionType(item) {
+          if (item.credit.accountId === accountId) {
+            if (item.debit.accountId !== 'CASH ACCOUNT') {
+              return `from ${item.debit.customer.name}-${item.debit.accountId}`;
+            }
+            return '';
+          }
+
+          if (item.debit.accountId === accountId) {
+            if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
+              return `to ${item.credit.customer.name}-${item.credit.accountId}`;
+            }
+            return '';
+          }
+        }
+
         return {
           transactionId: item.transactionId,
           transactionType: getTransactionType(item),
@@ -62,6 +78,7 @@ export default class AccountService {
           amount: item.transactionAmount.amount,
           currency: item.transactionAmount.currency,
           description: item.description,
+          subTransactionType: getSubTransactionType(item),
         };
       }),
     }));
@@ -95,6 +112,7 @@ export default class AccountService {
             }
             return '';
           }
+        }
 
           if (item.debit.accountId === accountId) {
             if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
@@ -112,9 +130,9 @@ export default class AccountService {
           currency: item.transactionAmount.currency,
           description: item.description,
           subTransactionType: getSubTransactionType(item),
-        };
-      }),
-    }));
+        }
+      })
+    }))
   }
 
   getLatestTransaction() {
@@ -181,6 +199,22 @@ export default class AccountService {
           }
         }
 
+        function getSubTransactionType(item) {
+          if (item.credit.accountId === accountId) {
+            if (item.debit.accountId !== 'CASH ACCOUNT') {
+              return `from ${item.debit.customer.name}-${item.debit.accountId}`;
+            }
+            return '';
+          }
+
+          if (item.debit.accountId === accountId) {
+            if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
+              return `to ${item.credit.customer.name}-${item.credit.accountId}`;
+            }
+            return '';
+          }
+        }
+
         return {
           transactionId: item.transactionId,
           transactionType: getTransactionType(item),
@@ -188,6 +222,7 @@ export default class AccountService {
           amount: item.transactionAmount.amount,
           currency: item.transactionAmount.currency,
           description: item.description,
+          subTransactionType: getSubTransactionType(item),
         };
       }),
     }));
@@ -211,6 +246,22 @@ export default class AccountService {
           }
         }
 
+        function getSubTransactionType(item) {
+          if (item.credit.accountId === accountId) {
+            if (item.debit.accountId !== 'CASH ACCOUNT') {
+              return `from ${item.debit.customer.name}-${item.debit.accountId}`;
+            }
+            return '';
+          }
+
+          if (item.debit.accountId === accountId) {
+            if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
+              return `to ${item.credit.customer.name}-${item.credit.accountId}`;
+            }
+            return '';
+          }
+        }
+
         return {
           transactionId: item.transactionId,
           transactionType: getTransactionType(item),
@@ -218,6 +269,7 @@ export default class AccountService {
           amount: item.transactionAmount.amount,
           currency: item.transactionAmount.currency,
           description: item.description,
+          subTransactionType: getSubTransactionType(item),
         };
       }),
     }));
@@ -241,6 +293,22 @@ export default class AccountService {
           }
         }
 
+        function getSubTransactionType(item) {
+          if (item.credit.accountId === accountId) {
+            if (item.debit.accountId !== 'CASH ACCOUNT') {
+              return `from ${item.debit.customer.name}-${item.debit.accountId}`;
+            }
+            return '';
+          }
+
+          if (item.debit.accountId === accountId) {
+            if (item.credit.accountId !== 'CASH ACCOUNT' || item.credit !== 'CASH ACCOUNT') {
+              return `to ${item.credit.customer.name}-${item.credit.accountId}`;
+            }
+            return '';
+          }
+        }
+
         return {
           transactionId: item.transactionId,
           transactionType: getTransactionType(item),
@@ -248,11 +316,11 @@ export default class AccountService {
           amount: item.transactionAmount.amount,
           currency: item.transactionAmount.currency,
           description: item.description,
+          subTransactionType: getSubTransactionType(item),
         };
       }),
     }));
   }
-
 
 
   postTransaction(transaction) {

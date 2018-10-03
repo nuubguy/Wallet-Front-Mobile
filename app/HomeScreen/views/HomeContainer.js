@@ -21,8 +21,8 @@ export default class HomeContainer extends React.Component {
             },
             transactions: [],
         }
-        this.username = 'C00000001';
-        this.account = 'A00000001';
+        this.username = 'C00000002';
+        this.account = 'A00000002';
     }
 
     static navigationOptions = {
