@@ -44,6 +44,7 @@ export default class TransactionList extends React.Component {
   }
 
   render() {
+    console.log(JSON.stringify(this.props.currentTransactions));
     return (
       <ScrollView style={styles.viewTable}>
         {this.props.currentTransactions.map(transaction => (

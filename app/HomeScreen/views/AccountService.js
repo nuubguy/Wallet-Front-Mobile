@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 import Constant from '../../config/Constant';
 
 export default class AccountService {
@@ -7,6 +8,7 @@ export default class AccountService {
     this.accountId = accountId;
     this.baseUrl = baseUrl;
   }
+
 
   async getAccount() {
     const accountId = this.accountId;
@@ -33,8 +35,8 @@ export default class AccountService {
     }
   }
 
-  static axiosGet(url) {
-    return axios.get(url);
+  static axiosGet(url, credentials) {
+    return axios.get(url, credentials);
   }
 
 
@@ -446,4 +448,19 @@ export default class AccountService {
         console.log(error);
       });
   }
+
+  // getAccountProfile(customerId, password) {
+  //   const getCustomerUrl = '/customers/C00000001';
+  //   axios.defaults.adapter = require('axios/lib/adapters/http');
+  //   const result = axios.get(getCustomerUrl, {
+  //     auth: {
+  //       customerId: 'C00000001',
+  //       password: 'P@ssw0rd',
+  //     },
+  //   });
+  //   console.log(result);
+  //   // this.account = result.data;
+  //
+  //   return result;
+  // }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, AsyncStorageStatic as AsyncStorage} from 'react-native';
 import Balance from '../sections/Balance';
 import Username from '../sections/Username';
 import AccountService from './AccountService';
@@ -7,7 +7,7 @@ import * as config from '../../config/Constant';
 import * as stylesBase from '../../config/Base';
 import AppHeader from "../../routes/AppHeader";
 import TransactionHeader from "../../TransactionHistoryScreen/sections/TransactionHeader";
-
+import {AccountData} from "../../config/Global";
 
 export default class HomeContainer extends React.Component {
 
@@ -21,8 +21,8 @@ export default class HomeContainer extends React.Component {
             },
             transactions: [],
         }
-        this.username = 'C00000001';
-        this.account = 'A00000001';
+        this.username = AccountData.customerId;
+        this.account = AccountData.accountId;
     }
 
     static navigationOptions = {
@@ -32,6 +32,7 @@ export default class HomeContainer extends React.Component {
             </View>
         ),
     };
+
 
     async componentDidMount() {
         try {
@@ -50,6 +51,7 @@ export default class HomeContainer extends React.Component {
     }
 
     render() {
+        console.log(this.state.username + 'username');
         return (
             <View style={stylesBase.CONTAINER}>
                 <AppHeader title='Home' data={this.props}/>
