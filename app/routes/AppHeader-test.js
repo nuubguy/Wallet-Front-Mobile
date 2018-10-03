@@ -16,14 +16,14 @@ describe('AppHeader', () => {
       const callbackFn = jest.fn();
     });
 
-    it('should call handleSubmit when the submit button clicked2', () => {
-      const callbackFn = jest.fn();
-      const renderedComponent = shallow(<AppHeader title="Home" />).setProps({ handleSubmit: callbackFn });
-
-      renderedComponent.find('Header').props().leftComponent.simulate('press');
-
-      // renderedComponent.find('#submit').simulate('press');
-      expect(callbackFn).toHaveBeenCalledTimes(1);
-    });
+    // it('should call handleSubmit when the submit button clicked2', () => {
+    //   const callbackFn = jest.fn();
+    //   const renderedComponent = shallow(<AppHeader title="Home" />).setProps({ handleSubmit: callbackFn });
+    //
+    //   renderedComponent.find('Header').props().leftComponent.simulate('press');
+    //
+    //   // renderedComponent.find('#submit').simulate('press');
+    //   expect(callbackFn).toHaveBeenCalledTimes(1);
+    // });
   });
 });

@@ -34,8 +34,14 @@ describe('TransactionHeader', () => {
   it('should redirect to the different page ', () => {
     const wrapper = shallow(<TransactionHeader data={transactions} />);
     const callbackFn = jest.fn();
-    wrapper.setProps({ navigate: callbackFn });
+    wrapper.setProps(
+      {
+        navigate: {
+          navigate: callbackFn,
+        },
+      },
+    );
     wrapper.find('#naviagateIcon').simulate('press');
-    expect(callbackFn).toHaveBeenCalledTimes(0);
+    expect(callbackFn).toHaveBeenCalledTimes(1);
   });
 });

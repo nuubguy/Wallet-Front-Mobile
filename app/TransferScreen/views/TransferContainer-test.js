@@ -5,6 +5,7 @@ import someAxios from 'axios';
 import TransferContainer from './TransferContainer';
 import AccountService from '../../HomeScreen/views/AccountService';
 import LoginContainer from '../../LoginScreen/views/LoginContainer';
+import TransactionContainer from '../../TransactionScreen/views/TransactionContainer';
 
 jest.mock('../../HomeScreen/views/AccountService');
 
@@ -45,31 +46,18 @@ describe('TransferContainer', () => {
   });
 
   describe('handleSubmit', () => {
-    it('should be able to post to wallet when press button confirm', async () => {
-
-      // let mockPostTransaction = jest.fn(() => {
-      //     return Promise.resolve({
-      //         data: ""
-      //     })
-      // });
-      // AccountService.mockImplementation(() => {
-      //     return {
-      //         postTransaction: mockPostTransaction,
-      //     }
-      // });
-      // const wrapper = shallow(<TransferContainer/>);
-      // wrapper.instance().handleSubmit();
-      // await Promise.resolve();
-      // expect(mockPostTransaction).toHaveBeenCalled();
-    });
-
     describe('handleSubmit', () => {
-      it('should be able to post to transfer when press button transfer', async () => {
-        someAxios.post.mockImplementation(() => Promise.resolve());
+      it('should be able to post to wallet when press button transfer', async () => {
+        const mockPostTransfer = jest.fn(() => Promise.resolve({
+          data: '',
+        }));
+        AccountService.mockImplementation(() => ({
+          postTransfer: mockPostTransfer,
+        }));
         const wrapper = shallow(<TransferContainer />);
         wrapper.instance().handleSubmit();
         await Promise.resolve();
-        expect(someAxios.post).toHaveBeenCalled();
+        expect(mockPostTransfer).toHaveBeenCalled();
       });
     });
   });

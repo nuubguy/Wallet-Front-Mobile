@@ -79,7 +79,7 @@ export default class TransferContainer extends Component {
         );
     }
 
-    isValidAmount(Amount) {
+    _isValidAmount(Amount) {
         return Amount >= config.MINIMUM_TRX && Amount <= config.MAXIMUM_TRX;
     }
 
@@ -117,7 +117,7 @@ export default class TransferContainer extends Component {
     handleChangeAmount = (amount) => {
         let inAmount = amount.replace(/[^0-9]/g, '');
         this.setState({btnConfirmDisabled: true})
-        if (this.isValidAmount(inAmount)) {
+        if (this._isValidAmount(inAmount)) {
             this.setState({btnConfirmDisabled: false})
         }
         this.setState({amount: inAmount});
