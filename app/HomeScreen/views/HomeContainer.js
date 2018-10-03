@@ -8,6 +8,7 @@ import * as stylesBase from '../../config/Base';
 import AppHeader from "../../routes/AppHeader";
 import TransactionHeader from "../../TransactionHistoryScreen/sections/TransactionHeader";
 import {AccountData} from "../../config/Global";
+import {showMessage} from "react-native-flash-message";
 
 export default class HomeContainer extends React.Component {
 
@@ -46,12 +47,10 @@ export default class HomeContainer extends React.Component {
             });
         }
         catch (e) {
-            console.log(e)
         }
     }
 
     render() {
-        console.log(this.state.username + 'username');
         return (
             <View style={stylesBase.CONTAINER}>
                 <AppHeader title='Home' data={this.props}/>

@@ -8,7 +8,6 @@ describe('HomeContainer', () => {
   describe('render', () => {
     it('should have AppHeader ', () => {
       const wrapper = shallow(<HomeContainer />);
-      console.log(wrapper.find('AppHeader').props());
       expect(wrapper.find('AppHeader').length).toBe(1);
     });
 
@@ -32,15 +31,14 @@ describe('HomeContainer', () => {
       expect(wrapper.find('Balance').props().data).toEqual({ amount: '', currency: '' });
     });
 
-      it('should have props data in Transaction Header', () => {
-          const wrapper = shallow(<HomeContainer />);
-          expect(wrapper.find('TransactionHeader').props().data).toEqual([]);
-      });
+    it('should have props data in Transaction Header', () => {
+      const wrapper = shallow(<HomeContainer />);
+      expect(wrapper.find('TransactionHeader').props().data).toEqual([]);
+    });
 
-      it('should have props data in Transaction Header', () => {
-          const wrapper = shallow(<HomeContainer />);
-          expect(wrapper.find('TransactionHeader').props().data).toEqual([]);
-      });
-
+    it('should have props data in Transaction Header', () => {
+      const wrapper = shallow(<HomeContainer />);
+      expect(wrapper.find('TransactionHeader').props().data).toEqual([]);
+    });
   });
 });

@@ -599,15 +599,4 @@ describe('accountService', () => {
       expect(result.data).toBe('Insufficient balance');
     });
   });
-  describe('getAccountProfile', () => {
-
-    it('should fetch info of customer account from API with basic authentication when the account wrong', async () => {
-      const testAccount = TestAccount();
-      try {
-        const result = await testAccount.getAccountProfile('C00000001', 'P@ssw0rd2');
-      } catch (e) {
-        expect(e.response.status).toBe(401);
-      }
-    });
-  });
 });
