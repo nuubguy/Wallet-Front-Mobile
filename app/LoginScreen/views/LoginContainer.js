@@ -56,7 +56,9 @@ export default class LoginContainer extends React.Component {
 
     handleSubmit = async () => {
         await this._signInAsync();
+
         if (this.state.isLogin) {
+            console.log(this.props.navigation)
             this.props.navigation.navigate('Home');
         }
     }

@@ -37,13 +37,36 @@ describe('LoginContainer', () => {
     });
   });
 
-  describe('handleSubmit', () => {
-    it('should be able to login application when press button ', async () => {
-      someAxios.get.mockImplementation(() => Promise.resolve());
+  describe('_signInAsync', () => {
+    it('should  be change status isLogin if success authenticate', async () => {
+      someAxios.get.mockImplementation(() => Promise.resolve({
+        status: 200,
+      }));
       const wrapper = shallow(<LoginContainer />);
-      wrapper.instance().handleSubmit();
+      wrapper.instance()._signInAsync();
       await Promise.resolve();
-      expect(someAxios.get).toHaveBeenCalled();
+      expect(wrapper.state().isLogin).toBe(true);
     });
   });
+
+  // describe('handleSubmit', () => {
+  //   it('should be able to login application when press button ', async () => {
+  //     someAxios.get.mockImplementation(() => Promise.resolve());
+  //     const wrapper = shallow(<LoginContainer />);
+  //     const callbackFn = jest.fn();
+  //     wrapper.setState({ isLogin: true });
+  //     wrapper.setProps(
+  //       {
+  //         navigation: {
+  //           navigate: callbackFn,
+  //         },
+  //       },
+  //     );
+  //
+  //     wrapper.instance().handleSubmit();
+  //     await Promise.resolve();
+  //     expect(someAxios.get).toHaveBeenCalled();
+  //     expect(callbackFn).toHaveBeenCalled();
+  //   });
+  // });
 });

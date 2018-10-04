@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import AppDrawerNavigator from './app/routes/AppDrawerNavigator';
-import Authenticate from './app/config/Authenticate';
 
 export default class App extends React.Component {
   render() {
@@ -14,7 +13,6 @@ export default class App extends React.Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

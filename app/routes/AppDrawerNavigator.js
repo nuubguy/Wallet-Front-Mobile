@@ -68,7 +68,7 @@ const AppStack = createDrawerNavigator({
   'Top Up': TopUpContainer,
   Transfer: TransferContainer,
   'Transaction History': TransactionHistoryFilter,
-  Payee: PayeeContainer,
+  'Add Payee': PayeeContainer,
 }, {
   contentComponent: CustomDrawerComponent,
   contentOptions: {

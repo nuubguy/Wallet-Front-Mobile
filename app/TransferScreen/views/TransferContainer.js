@@ -79,7 +79,7 @@ export default class TransferContainer extends Component {
         );
     }
 
-    isValidAmount(Amount) {
+    _isValidAmount(Amount) {
         return Amount >= config.MINIMUM_TRX && Amount <= config.MAXIMUM_TRX;
     }
 
@@ -89,6 +89,7 @@ export default class TransferContainer extends Component {
         if (numberOfPayees > 0) {
             for (let i = 0; i < numberOfPayees; i++) {
                 if (this.state.payees[i].accountId === inputAccountId) {
+
                     this.setState({
                         isEditable: true,
                         isFound: true,
@@ -117,7 +118,7 @@ export default class TransferContainer extends Component {
     handleChangeAmount = (amount) => {
         let inAmount = amount.replace(/[^0-9]/g, '');
         this.setState({btnConfirmDisabled: true})
-        if (this.isValidAmount(inAmount)) {
+        if (this._isValidAmount(inAmount)) {
             this.setState({btnConfirmDisabled: false})
         }
         this.setState({amount: inAmount});
@@ -145,7 +146,6 @@ export default class TransferContainer extends Component {
                 type: "danger",
                 icon: "danger"
             });
-            console.log(error)
         }
 
     }

@@ -22,10 +22,12 @@ export default class InputFilter extends React.Component {
         <Dialog.Container visible={this.props.dialogVisible}>
           <Dialog.Title>Find Transaction</Dialog.Title>
           <Dialog.Input
+            id="amount"
             placeholder="Amount"
             onChangeText={(e) => { this.props.inputOnChange(e); }}
           />
           <Dialog.Input
+            id="description"
             placeholder="Description"
             onChangeText={(e) => { this.props.descriptionOnChange(e); }}
           />

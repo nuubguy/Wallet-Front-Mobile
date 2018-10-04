@@ -26,35 +26,34 @@ describe('Transaction Input', () => {
 
     it('should call inputOnChange when the amount is changed', () => {
       const callbackFn = jest.fn();
-      const callbackFnDialog = jest.fn();
-      const renderedComponent = setup().setProps({ showDialog: callbackFnDialog, inputOnChange: callbackFn, isTrue: true });
+      const renderedComponent = setup().setProps({ inputOnChange: callbackFn});
 
-      renderedComponent.find('#amount').simulate('ChangeText', { target: {} });
+      renderedComponent.find('#amount').simulate('ChangeText');
       expect(callbackFn).toHaveBeenCalledTimes(1);
     });
 
-      it('should call descriptionOnChange when the description is changed', () => {
-          const callbackFn = jest.fn();
-          const renderedComponent = setup().setProps({ descriptionOnChange: callbackFn });
+    it('should call descriptionOnChange when the description is changed', () => {
+      const callbackFn = jest.fn();
+      const renderedComponent = setup().setProps({ descriptionOnChange: callbackFn });
 
-          renderedComponent.find('#decription').simulate('ChangeText', { target: {} });
-          expect(callbackFn).toHaveBeenCalledTimes(1);
-      });
+      renderedComponent.find('#description').simulate('ChangeText');
+      expect(callbackFn).toHaveBeenCalledTimes(1);
+    });
 
-      it('should call handleCancel when the cancel button clicked', () => {
-          const callbackFn = jest.fn();
-          const renderedComponent = setup().setProps({ handleCancel: callbackFn });
+    it('should call handleCancel when the cancel button clicked', () => {
+      const callbackFn = jest.fn();
+      const renderedComponent = setup().setProps({ handleCancel: callbackFn });
 
-          renderedComponent.find('#cancel').simulate('press');
-          expect(callbackFn).toHaveBeenCalledTimes(1);
-      });
+      renderedComponent.find('#cancel').simulate('press');
+      expect(callbackFn).toHaveBeenCalledTimes(1);
+    });
 
-      it('should call handleSubmit when the submit button clicked2', () => {
-          const callbackFn = jest.fn();
-          const renderedComponent = setup().setProps({ handleSubmit: callbackFn });
+    it('should call handleSubmit when the submit button clicked2', () => {
+      const callbackFn = jest.fn();
+      const renderedComponent = setup().setProps({ handleSubmit: callbackFn });
 
-          renderedComponent.find('#submit').simulate('press');
-          expect(callbackFn).toHaveBeenCalledTimes(1);
-      });
+      renderedComponent.find('#submit').simulate('press');
+      expect(callbackFn).toHaveBeenCalledTimes(1);
+    });
   });
 });
