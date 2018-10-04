@@ -1,11 +1,10 @@
 /* global describe it expect */
 import React from 'react';
 import { shallow } from 'enzyme';
-import someAxios from 'axios';
+
 import TransferContainer from './TransferContainer';
 import AccountService from '../../HomeScreen/views/AccountService';
-import LoginContainer from '../../LoginScreen/views/LoginContainer';
-import TransactionContainer from '../../TransactionScreen/views/TransactionContainer';
+
 
 jest.mock('../../HomeScreen/views/AccountService');
 
@@ -45,20 +44,47 @@ describe('TransferContainer', () => {
     });
   });
 
-  describe('handleSubmit', () => {
-    describe('handleSubmit', () => {
-      it('should be able to post to wallet when press button transfer', async () => {
-        const mockPostTransfer = jest.fn(() => Promise.resolve({
-          data: '',
-        }));
-        AccountService.mockImplementation(() => ({
-          postTransfer: mockPostTransfer,
-        }));
-        const wrapper = shallow(<TransferContainer />);
-        wrapper.instance().handleSubmit();
-        await Promise.resolve();
-        expect(mockPostTransfer).toHaveBeenCalled();
+
+  describe('handleClickCheck', () => {
+    it('should be able to check account id', async () => {
+      const payees = [
+        { accountId: 'A0001', customer: { name: 'fauzan' } },
+        { accountId: 'A0002', customer: { name: 'rifki' } },
+      ];
+      const wrapper = shallow(<TransferContainer />);
+      wrapper.setState({
+        payees,
+        recipientAccountId: 'A0001',
       });
+
+      wrapper.instance().handleClickCheck();
+      expect(wrapper.state().isFound).toBe(true);
+    });
+
+    it('should be show message when cannot found account id', async () => {
+      const payees = [{ acccountId: 'A0001' }, { acccountId: 'A0002' }];
+      const wrapper = shallow(<TransferContainer />);
+      wrapper.setState({
+        payees,
+        recipientAccountId: 'A00013',
+      });
+      wrapper.instance().handleClickCheck();
+      expect(wrapper.state().isFound).toBe(false);
+    });
+  });
+
+  describe('handleSubmit', () => {
+    it('should be able to post to wallet when press button transfer', async () => {
+      const mockPostTransfer = jest.fn(() => Promise.resolve({
+        data: '',
+      }));
+      AccountService.mockImplementation(() => ({
+        postTransfer: mockPostTransfer,
+      }));
+      const wrapper = shallow(<TransferContainer />);
+      wrapper.instance().handleSubmit();
+      await Promise.resolve();
+      expect(mockPostTransfer).toHaveBeenCalled();
     });
   });
 });

@@ -10,6 +10,7 @@ import moment from 'moment';
 const styles = StyleSheet.create({
   rowSpace: {
     paddingBottom: 5,
+      fontSize: 13
   },
   borderBlack: {
     borderColor: '#000',

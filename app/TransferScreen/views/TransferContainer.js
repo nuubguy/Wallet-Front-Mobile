@@ -89,6 +89,7 @@ export default class TransferContainer extends Component {
         if (numberOfPayees > 0) {
             for (let i = 0; i < numberOfPayees; i++) {
                 if (this.state.payees[i].accountId === inputAccountId) {
+
                     this.setState({
                         isEditable: true,
                         isFound: true,

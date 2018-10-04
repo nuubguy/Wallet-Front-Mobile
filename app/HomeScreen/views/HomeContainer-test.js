@@ -2,7 +2,13 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import someAxios from 'axios';
 import HomeContainer from './HomeContainer';
+import LoginContainer from '../../LoginScreen/views/LoginContainer';
+import AccountService from './AccountService';
+import TransferContainer from '../../TransferScreen/views/TransferContainer';
+
+jest.mock('./AccountService');
 
 describe('HomeContainer', () => {
   describe('render', () => {
@@ -40,5 +46,19 @@ describe('HomeContainer', () => {
       const wrapper = shallow(<HomeContainer />);
       expect(wrapper.find('TransactionHeader').props().data).toEqual([]);
     });
+
+    it('should be able to get latest transaction ', async () => {
+      const mockGetLatestTransaction = jest.fn(() => Promise.resolve({
+        data: '',
+      }));
+      AccountService.mockImplementation(() => ({
+        getLatestTransaction: mockGetLatestTransaction,
+      }));
+      const wrapper = shallow(<HomeContainer />);
+      wrapper.instance().componentDidMount();
+      await Promise.resolve();
+      expect(mockGetLatestTransaction).toHaveBeenCalled();
+    });
+
   });
 });
